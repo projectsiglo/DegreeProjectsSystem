@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DegreeProjectsSystem.DataAccess\DegreeProjectsSystem.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
