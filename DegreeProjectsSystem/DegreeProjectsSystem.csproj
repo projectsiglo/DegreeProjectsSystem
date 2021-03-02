@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DegreeProjectsSystem.DataAccess\DegreeProjectsSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\DegreeProjectsSystem.Models\DegreeProjectsSystem.Models.csproj" />
   </ItemGroup>
 
 </Project>
