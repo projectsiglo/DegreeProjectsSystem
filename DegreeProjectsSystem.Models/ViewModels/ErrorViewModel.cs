@@ -1,5 +1,3 @@
-using System;
-
 namespace DegreeProjectsSystem.Models.ViewModels
 {
     public class ErrorViewModel
