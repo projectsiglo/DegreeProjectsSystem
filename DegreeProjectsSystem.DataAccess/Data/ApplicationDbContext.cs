@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using DegreeProjectsSystem.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
@@ -9,5 +10,7 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
             : base(options)
         {
         }
+
+        public DbSet<Department> Departments { get; set; }
     }
 }
