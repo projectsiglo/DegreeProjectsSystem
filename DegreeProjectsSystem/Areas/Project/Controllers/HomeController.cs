@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace DegreeProjectsSystem.Controllers
+namespace DegreeProjectsSystem.Areas.Project.Controllers
 {
+    [Area("Project")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

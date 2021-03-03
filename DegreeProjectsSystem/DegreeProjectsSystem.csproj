@@ -12,12 +12,17 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DegreeProjectsSystem.DataAccess\DegreeProjectsSystem.DataAccess.csproj" />
     <ProjectReference Include="..\DegreeProjectsSystem.Models\DegreeProjectsSystem.Models.csproj" />
     <ProjectReference Include="..\DegreeProjectsSystem.Utilities\DegreeProjectsSystem.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
