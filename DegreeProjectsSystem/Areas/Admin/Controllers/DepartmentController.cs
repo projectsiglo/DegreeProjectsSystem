@@ -22,11 +22,9 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         }
 
         #region API
-        [HttpGet]
         public IActionResult GetAllDepartments() 
         {
             var departments = _unitWork.Department.GetAll();
-            return Json(new {  data = departments });
         }
         #endregion
     }
