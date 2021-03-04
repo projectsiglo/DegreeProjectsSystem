@@ -1,3 +1,5 @@
+using DegreeProjectsSystem.DataAccess.Repository;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +28,7 @@ namespace DegreeProjectsSystem
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddScoped<IUnitWork, UnitWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
         }
