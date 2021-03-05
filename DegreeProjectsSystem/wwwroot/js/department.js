@@ -1,11 +1,11 @@
-﻿var datatable;
+﻿let dataTable;
 
 $(document).ready(function () {
     loadDataTable();
 });
 
 function loadDataTable() {
-    datatable = $('#tblData').DataTable({
+    dataTable = $('#tblData').DataTable({
         "ajax": {
             "url": "/Admin/Department/GetAllDepartments"
         },
@@ -14,11 +14,15 @@ function loadDataTable() {
             {
                 "data": "active",
                 "render": function (data) {
-                    if (data == true) {
-                        return "Activo";
+                    if (data) {
+                        return `
+                                  <div class="status-active text-center">Activo</div>
+                               `
                     }
                     else {
-                        return "Inactivo";
+                        return `      
+                                  <div class="status-inactive text-center">Inactivo</div>
+                               `
                     }
                 }, "width": "10%"
             },
@@ -30,7 +34,7 @@ function loadDataTable() {
                                 <a href="/Admin/Department/InsertOrUpdateDepartment/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit p-1"></i>
                                 </a>
-                                <a onclick=Delete("/Admin/Department/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
+                                <a onclick=Delete("/Admin/Department/DeleteDepartment/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
                                     <i class="far fa-trash-alt p-1"></i>
                                 </a>
                             </div>
@@ -46,22 +50,23 @@ function Delete(url) {
 
     swal({
         title: "Esta Seguro que quiere Eliminar el Departamento?",
-        text: "Este Registro no se podra recuperar",
+        text: "Este registro se puede  recuperar actualizando su estado a Activo",
         icon: "warning",
         buttons: true,
         dangerMode: true
-    }).then((borrar) => {
-        if (borrar) {
+    }).then((erase) => {
+        if (erase) {
             $.ajax({
-                type: "DELETE",
+                type: "POST",
                 url: url,
                 success: function (data) {
-                    if (data.success) {
+                    if (data) {
                         toastr.success(data.message);
-                        datatable.ajax.reload();
+                        dataTable.ajax.reload();
                     }
                     else {
                         toastr.error(data.message);
+                        dataTable.ajax.reload();
                     }
                 }
             });

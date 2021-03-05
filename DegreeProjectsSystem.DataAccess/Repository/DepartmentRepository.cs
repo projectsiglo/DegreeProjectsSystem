@@ -26,5 +26,6 @@ namespace DegreeProjectsSystem.DataAccess.Repository
                 departmentDb.Active = department.Active;
             }
         }
+
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +35,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return View(department);
 
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult InsertOrUpdateDepartment(Department department)
@@ -67,20 +64,28 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return Json(new { data = departments });
         }
 
-        [HttpDelete]
-        public IActionResult DeleteDepartment(int id) 
+        //Eliminación de registro lógica
+        [HttpPost]
+        public IActionResult DeleteDepartment(int id)
         {
-            var departmentDb = _unitWork.Department.Get(id);
+            Department departmentDb = new Department();
+            // Actualiza el registro
+            departmentDb = _unitWork.Department.Get(id);
 
             if (departmentDb == null)
             {
-                return Json(new { succes = false, mesage = "!!Error al borrar Departamento!! " });
+                return Json(new { succes = false, message = "!!Error al borrar Departamento!! " });
             }
-            _unitWork.Department.Remove(departmentDb);
+
+            departmentDb.Active = false;
+            _unitWork.Department.Update(departmentDb);
             _unitWork.Save();
-            return Json(new { succes = true, mesage = "Departamento borrado exitosamente" });
+
+
+            return Json(new { succes = true, message = "Departamento borrado exitosamente" });
+
         }
-        
+
 
         #endregion
     }
