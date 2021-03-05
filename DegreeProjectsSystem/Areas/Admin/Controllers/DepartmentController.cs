@@ -66,6 +66,22 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             var departments = _unitWork.Department.GetAll();
             return Json(new { data = departments });
         }
+
+        [HttpDelete]
+        public IActionResult DeleteDepartment(int id) 
+        {
+            var departmentDb = _unitWork.Department.Get(id);
+
+            if (departmentDb == null)
+            {
+                return Json(new { succes = false, mesage = "!!Error al borrar Departamento!! " });
+            }
+            _unitWork.Department.Remove(departmentDb);
+            _unitWork.Save();
+            return Json(new { succes = true, mesage = "Departamento borrado exitosamente" });
+        }
+        
+
         #endregion
     }
 }
