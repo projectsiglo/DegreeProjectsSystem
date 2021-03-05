@@ -38,7 +38,25 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             }
             return View(department);
 
-
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult InsertOrUpdateDepartment(Department department)
+        {
+            if (ModelState.IsValid)
+            {
+                if (department.Id == 0)
+                {
+                    _unitWork.Department.Add(department);
+                }
+                else
+                {
+                    _unitWork.Department.Update(department);
+                }
+                _unitWork.Save();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(department);
         }
 
         #region API

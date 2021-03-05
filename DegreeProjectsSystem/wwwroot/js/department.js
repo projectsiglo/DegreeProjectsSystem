@@ -20,25 +20,22 @@ function loadDataTable() {
                     else {
                         return "Inactivo";
                     }
-                }, "width": "20%"
+                }, "width": "10%"
             },
             {
                 "data": "id",
                 "render": function (data) {
                     return `
-
-                    div class="text-center">
-                        <a href="Admin/Department/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer;">
-                            Editar
-                            <i class="far fa-edit p-1"></i>
-                        </a>
-                        <a onclick=Delete("/Admin/Categoria/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
-                            Eliminar
-                            <i class="far fa-trash-alt p-1"></i>
-                        </a>
-                    </div>
-                        `;
-                }, "width": "20%"
+                            <div class="text-center">
+                                <a href="/Admin/Department/InsertOrUpdateDepartment/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                    <i class="far fa-edit p-1"></i>
+                                </a>
+                                <a onclick=Delete("/Admin/Department/Delete/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
+                                    <i class="far fa-trash-alt p-1"></i>
+                                </a>
+                            </div>
+                         `;
+                    }, "width": "20%"
             }
         ]
     });
@@ -48,7 +45,7 @@ function loadDataTable() {
 function Delete(url) {
 
     swal({
-        title: "Esta Seguro que quiere Eliminar la Categoria?",
+        title: "Esta Seguro que quiere Eliminar el Departamento?",
         text: "Este Registro no se podra recuperar",
         icon: "warning",
         buttons: true,

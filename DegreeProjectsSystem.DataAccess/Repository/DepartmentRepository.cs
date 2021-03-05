@@ -23,8 +23,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             if (departmentDb !=null)
             {
                 departmentDb.Name = department.Name;
-
-                _db.SaveChanges();
+                departmentDb.Active = department.Active;
             }
         }
     }

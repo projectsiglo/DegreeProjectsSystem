@@ -4,6 +4,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
 {
     public interface IUnitWork : IDisposable
     {
-        IDepartmentRepository Department{get;}
+        IDepartmentRepository Department{ get; }
+        void Save();
     }
 }
