@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DegreeProjectsSystem.Areas.Admin.Controllers
@@ -19,6 +20,25 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult InsertOrUpdateDepartment(int? id)
+        {
+            Department department = new Department();
+            if ( id == null)
+            {
+                // Crea un nuevo registro
+                return View(department);
+            }
+            // Actualiza el registro
+            department = _unitWork.Department.Get(id.GetValueOrDefault());
+            if (department == null)
+            {
+                return NotFound();
+            }
+            return View(department);
+
+
         }
 
         #region API
