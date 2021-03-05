@@ -11,6 +11,7 @@ namespace DegreeProjectsSystem.Models
         [Display(Name ="Nombre")]
         public string Name { get; set; }
         [Required]
+        [Display(Name = "Estado")]
         public bool Active { get; set; }
     }
 }
