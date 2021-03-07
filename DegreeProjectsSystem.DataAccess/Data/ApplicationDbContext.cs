@@ -12,5 +12,6 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         }
 
         public DbSet<Department> Departments { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
     }
 }
