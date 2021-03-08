@@ -1,8 +1,5 @@
 ﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace DegreeProjectsSystem.DataAccess.Repository
 {
@@ -12,12 +9,13 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public IDepartmentRepository Department { get; private set; }
         public IFacultyRepository Faculty { get; private set; }
 
+        public IEducationLevelRepository EducationLevel { get; private set; }
         public UnitWork(ApplicationDbContext db)
         {
             _db = db;
             Department = new DepartmentRepository(_db); // Inicializamos
             Faculty = new FacultyRepository(_db);
-             
+            EducationLevel = new EducationLevelRepository(_db);
 
         }
 

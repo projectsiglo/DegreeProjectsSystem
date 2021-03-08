@@ -16,11 +16,11 @@ namespace DegreeProjectsSystem.DataAccess.Repository
 
         public void Update(Faculty faculty)
         {
-            var facultyDb = _db.Departments.FirstOrDefault(f => f.Id == faculty.Id);
+            var facultyDb = _db.Faculties.FirstOrDefault(f => f.Id == faculty.Id);
             if (facultyDb != null)
             {
-                facultyDb.Name = facultyDb.Name;
-                facultyDb.Active = facultyDb.Active;
+                facultyDb.Name = faculty.Name;
+                facultyDb.Active = faculty.Active;
             }
         }
 
