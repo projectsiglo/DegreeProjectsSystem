@@ -60,7 +60,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAllDepartments() 
         {
-            var departments = _unitWork.Faculty.GetAll();
+            var departments = _unitWork.Department.GetAll();
             return Json(new { data = departments });
         }
 

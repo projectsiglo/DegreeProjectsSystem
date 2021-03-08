@@ -7,16 +7,17 @@ namespace DegreeProjectsSystem.DataAccess.Repository
     {
         private readonly ApplicationDbContext _db;
         public IDepartmentRepository Department { get; private set; }
-        public IFacultyRepository Faculty { get; private set; }
-
         public IEducationLevelRepository EducationLevel { get; private set; }
+        public IFacultyRepository Faculty { get; private set; }
+        public ITypePersonRepository TypePerson { get; private set; }
+       
         public UnitWork(ApplicationDbContext db)
         {
             _db = db;
             Department = new DepartmentRepository(_db); // Inicializamos
-            Faculty = new FacultyRepository(_db);
             EducationLevel = new EducationLevelRepository(_db);
-
+            Faculty = new FacultyRepository(_db);
+            TypePerson = new TypePersonRepository(_db);
         }
 
         public void Save()

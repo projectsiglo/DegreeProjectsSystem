@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/Admin/Department/GetAllDepartments"
+            "url": "/Admin/TypePerson/GetAllTypePeople"
         },
         "columns": [
             { "data": "name", "width": "40%" },
@@ -31,10 +31,10 @@ function loadDataTable() {
                 "render": function (data) {
                     return `
                             <div class="text-center">
-                                <a href="/Admin/Department/InsertOrUpdateDepartment/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                <a href="/Admin/TypePerson/InsertOrUpdateTypePerson/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a onclick=Delete("/Admin/Department/DeleteDepartment/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
+                                <a onclick=Delete("/Admin/TypePerson/DeleteTypePerson/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -49,7 +49,7 @@ function loadDataTable() {
 function Delete(url) {
 
     swal({
-        title: "Esta Seguro que quiere Eliminar el Departamento?",
+        title: "Esta seguro que quiere eliminar el tipo de persona?",
         text: "Este registro se puede  recuperar actualizando su estado a Activo",
         icon: "warning",
         buttons: true,

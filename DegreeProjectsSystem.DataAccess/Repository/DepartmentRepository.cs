@@ -1,10 +1,7 @@
 ﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
 using DegreeProjectsSystem.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace DegreeProjectsSystem.DataAccess.Repository
 {
