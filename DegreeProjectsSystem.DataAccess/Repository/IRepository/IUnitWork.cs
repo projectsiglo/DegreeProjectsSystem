@@ -6,6 +6,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
     {
         IDepartmentRepository Department{ get; }
         IFacultyRepository Faculty { get; }
+        IInstitutionTypeRepository InstitutionType { get; }
         IEducationLevelRepository EducationLevel { get; }
         ITypePersonRepository TypePerson { get; }
         void Save();
