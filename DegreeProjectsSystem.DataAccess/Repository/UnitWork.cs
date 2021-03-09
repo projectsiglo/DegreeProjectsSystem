@@ -10,6 +10,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public IEducationLevelRepository EducationLevel { get; private set; }
         public IFacultyRepository Faculty { get; private set; }
         public IInstitutionTypeRepository InstitutionType { get; private set; }
+        public ITeachingFunctionRepository TeachingFunction { get; private set; }
         public ITypePersonRepository TypePerson { get; private set; }
        
         public UnitWork(ApplicationDbContext db)
@@ -18,6 +19,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             Department = new DepartmentRepository(_db); // Inicializamos
             EducationLevel = new EducationLevelRepository(_db);
             Faculty = new FacultyRepository(_db);
+            TeachingFunction = new TeachingFunctionRepository(_db); 
             TypePerson = new TypePersonRepository(_db);
             InstitutionType = new InstitutionTypeRepository(_db);
         }
