@@ -23,6 +23,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             Department department = new Department();
             if ( id == null)
             {
+                department.Active = true;
                 // Crea un nuevo registro
                 return View(department);
             }

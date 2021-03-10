@@ -23,6 +23,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             Faculty faculty = new Faculty();
             if ( id == null)
             {
+                faculty.Active = true;
                 // Crea un nuevo registro
                 return View(faculty);
             }

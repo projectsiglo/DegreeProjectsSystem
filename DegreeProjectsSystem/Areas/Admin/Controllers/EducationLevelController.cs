@@ -23,6 +23,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             EducationLevel educationLevel = new EducationLevel();
             if (id == null)
             {
+                educationLevel.Active = true;
                 // Crea un nuevo registro
                 return View(educationLevel);
             }

@@ -23,6 +23,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             TeachingFunction teachingFunction = new TeachingFunction();
             if (id == null)
             {
+                teachingFunction.Active = true;
                 // Crea un nuevo registro
                 return View(teachingFunction);
             }

@@ -23,6 +23,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             TypePerson typePerson = new TypePerson();
             if (id == null)
             {
+                typePerson.Active = true;
                 // Crea un nuevo registro
                 return View(typePerson);
             }

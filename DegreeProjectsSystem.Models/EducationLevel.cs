@@ -10,7 +10,7 @@ namespace DegreeProjectsSystem.Models
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener menos de {1} caracteres")]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar un estado")]
+        
         [Display(Name = "Estado")]
         public bool Active { get; set; }
     }

@@ -23,6 +23,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             InstitutionType institutionType = new InstitutionType();
             if (id == null)
             {
+                institutionType.Active = true;
                 // Crea un nuevo registro
                 return View(institutionType);
             }
