@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-
 </head>
 <body>
     <header>
@@ -30,20 +29,73 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                          <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Tablas Maestras
-        </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-th">
+                                        <span class="p-1 font-menu">
+                                            Tablas Maestras
+                                        </span>
+                                </i>
+                            </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" asp-area="Admin" asp-controller="Department" asp-action="Index">Departamento</a>
-            <a class="dropdown-item" asp-area="Admin" asp-controller="Faculty" asp-action="Index">Facultad</a>
-            <a class="dropdown-item" asp-area="Admin" asp-controller="TeachingFunction" asp-action="Index">Función Docente</a>
-            <a class="dropdown-item" asp-area="Admin" asp-controller="EducationLevel" asp-action="Index">Nível Educativo</a>
-            <a class="dropdown-item" asp-area="Admin" asp-controller="Submodality" asp-action="Index">Submodalidad</a>
-            <a class="dropdown-item" asp-area="Admin" asp-controller="InstitutionType" asp-action="Index">Tipo De Institución</a>
-            <a class="dropdown-item" asp-area="Admin" asp-controller="TypePerson" asp-action="Index">Tipo De Persona</a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="Department" asp-action="Index">
+                <i class="fas fa-flag">
+                    <span class="p-1 font-menu">
+                        Departamento
+                    </span>
+                </i>
+            </a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="Faculty" asp-action="Index">
+                <i class="fas fa-school">
+                    <span class="p-1 font-menu">
+                        Facultad
+                    </span>
+                </i>
+            </a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="TeachingFunction" asp-action="Index">
+                <i class="fas fa-chalkboard-teacher">
+                    <span class="p-1 font-menu">
+                        Función Docente
+                    </span>
+                </i>
+            </a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="EducationLevel" asp-action="Index">
+                <i class="fas fa-graduation-cap">
+                    <span class="p-1 font-menu">
+                        Nível Educativo
+                    </span>
+                </i>
+            </a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="Submodality" asp-action="Index">
+                <i class="fas fa-puzzle-piece">
+                    <span class="p-1 font-menu">
+                        Submodalidad
+                    </span>
+                </i>
+            </a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="InstitutionType" asp-action="Index">
+                <i class="fas fa-university">
+                    <span class="p-1 font-menu">
+                        Tipo De Institución
+                    </span>
+                </i>
+            </a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="TypePerson" asp-action="Index">
+                <i class="fas fa-user-friends">
+                    <span class="p-1 font-menu">
+                        Tipo De Persona
+                    </span>
+                </i>
+            </a>
+            <a class="dropdown-item" asp-area="Admin" asp-controller="ProgramType" asp-action="Index">
+                <i class="fas fa-book">
+                   <span class="p-1 font-menu" >
+                        Tipo De Programa
+                   </span>
+                </i>
+            </a>
             <a class="dropdown-item" href="#">Another action</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <a class="dropdown-item font-menu" href="#">Something else here</a>
         </div>
       </li>
                     </ul>
