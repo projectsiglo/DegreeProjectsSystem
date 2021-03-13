@@ -8,6 +8,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
         IEducationLevelRepository EducationLevel { get; }
         IFacultyRepository Faculty { get; }
         IInstitutionTypeRepository InstitutionType { get; }
+        ICareerRepository Career { get; }
         IProgramTypeRepository ProgramType { get; }
         ISubmodalityRepository Submodality { get; }
         ITeachingFunctionRepository TeachingFunction { get; }
