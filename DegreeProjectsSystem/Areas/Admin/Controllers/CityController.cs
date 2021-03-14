@@ -18,6 +18,14 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         {
             _unitWork = unitWork;
         }
+
+        enum Action
+        {
+            Create, 
+            Update,
+            None
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -56,21 +64,31 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult InsertOrUpdateCity(CityViewModel cityViewModel)
         {
+            
             if (ModelState.IsValid)
             {
+                Action action = Action.None;
                 if (cityViewModel.City.Id == 0)
                 {
-                    TempData["Create"] = "Ciudad creada correctamente";
+                    action = Action.Create;
                     _unitWork.City.Add(cityViewModel.City);
                 }
                 else
                 {
-                    TempData["Update"] = "Ciudad actualizada correctamente";
+                    action = Action.Update;
                     _unitWork.City.Update(cityViewModel.City);
                 }
                 try
                 {
                     _unitWork.Save();
+                    if (action == Action.Create)
+                    {
+                        TempData["Create"] = "Ciudad creada correctamente";
+                    }
+                    if (action == Action.Update)
+                    {
+                        TempData["Update"] = "Ciudad actualizada correctamente";
+                    }
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException dbUpdateException)
