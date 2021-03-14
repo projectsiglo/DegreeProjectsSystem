@@ -11,6 +11,7 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         {
         }
 
+        public DbSet<City> Cities { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<EducationLevel> EducationLevels { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
@@ -20,6 +21,20 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         public DbSet<Submodality> Submodalities { get; set; }
         public DbSet<TeachingFunction> TeachingFunctions { get; set; }
         public DbSet<TypePerson> TypePeople { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Department>()
+                .HasIndex(t => t.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<City>()
+                .HasIndex(c => new { c.Name, c.DepartmentId })
+                .IsUnique();
+        }
+
 
     }
 }

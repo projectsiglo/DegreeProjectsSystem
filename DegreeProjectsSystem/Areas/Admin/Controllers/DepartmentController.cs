@@ -1,6 +1,8 @@
 ﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DegreeProjectsSystem.Areas.Admin.Controllers
 {
@@ -45,14 +47,35 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             {
                 if (department.Id == 0)
                 {
+                    TempData["Create"] = "Departamento creado correctamente";
                     _unitWork.Department.Add(department);
                 }
                 else
                 {
+                    TempData["Update"] = "Departamento actualizado correctamente";
                     _unitWork.Department.Update(department);
                 }
-                _unitWork.Save();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _unitWork.Save();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("IX_Departments_Name"))
+                    {
+                        TempData["Error"] = "Ya existe un Departamento con el mismo nombre";
+                        return View(department);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
             }
             return View(department);
         }

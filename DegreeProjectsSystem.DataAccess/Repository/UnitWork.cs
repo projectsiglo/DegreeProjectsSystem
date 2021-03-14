@@ -6,6 +6,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
     public class UnitWork : IUnitWork
     {
         private readonly ApplicationDbContext _db;
+        public ICityRepository City { get; private set; }
         public IDepartmentRepository Department { get; private set; }
         public IEducationLevelRepository EducationLevel { get; private set; }
         public IFacultyRepository Faculty { get; private set; }
@@ -19,8 +20,9 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public UnitWork(ApplicationDbContext db)
         {
             _db = db;
-            Career = new CareerRepository(_db);
-            Department = new DepartmentRepository(_db); // Inicializamos
+            Career = new CareerRepository(_db); // Inicializamos
+            City = new CityRepository(_db); 
+            Department = new DepartmentRepository(_db); 
             EducationLevel = new EducationLevelRepository(_db);
             Faculty = new FacultyRepository(_db);
             ProgramType = new ProgramTypeRepository(_db);

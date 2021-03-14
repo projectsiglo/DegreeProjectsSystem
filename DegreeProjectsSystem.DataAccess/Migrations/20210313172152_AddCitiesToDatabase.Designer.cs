@@ -4,14 +4,16 @@ using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DegreeProjectsSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210313172152_AddCitiesToDatabase")]
+    partial class AddCitiesToDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,9 +71,6 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("Name", "DepartmentId")
-                        .IsUnique();
-
                     b.ToTable("Cities");
                 });
 
@@ -91,9 +90,6 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
 
                     b.ToTable("Departments");
                 });

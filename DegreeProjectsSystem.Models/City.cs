@@ -3,25 +3,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DegreeProjectsSystem.Models
 {
-    public class ProgramType
+    public class City
     {
         [Key]
         public int Id { get; set; }
-       
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresaar un nombre Programa")]
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresaar un nombre de Ciudad")]
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener menos de {1} caracteres")]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar un Nível Educativo")]
-         public int EducationLevelId { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar el Departamento al que pertenece")]
+        public int DepartmentId { get; set; }
 
         //Foreign key
-        [ForeignKey("EducationLevelId")]
-        public EducationLevel EducationLevel { get; set; }
+        [ForeignKey("DepartmentId")]
+        public Department Department { get; set; }
 
 
-        [Display(Name="Estado")]
+        [Display(Name = "Estado")]
         public bool Active { get; set; }
     }
 }
