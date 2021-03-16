@@ -7,6 +7,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
         ICityRepository City { get; }
         IDepartmentRepository Department{ get; }
         IEducationLevelRepository EducationLevel { get; }
+        IIdentityDocumentTypeRepository IdentityDocumentType { get; }
         IFacultyRepository Faculty { get; }
         IInstitutionContactChargeRepository InstitutionContactCharge { get; }
         IInstitutionTypeRepository InstitutionType { get; }
