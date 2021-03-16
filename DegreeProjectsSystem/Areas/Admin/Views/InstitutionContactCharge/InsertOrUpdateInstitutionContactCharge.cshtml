@@ -1,0 +1,71 @@
+﻿@model DegreeProjectsSystem.Models.InstitutionContactCharge
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Crear Cargo Contacto Institución";
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mt-5" role="alert">
+        <h4>@TempData["Error"]</h4>
+        <button type="button" class="close" data-dismiss="alert" arial-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+
+<form method="post">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.Id != 0)
+    {
+        // Actualizar
+        title = "Actualizar Cargo Contacto Institución";
+    }
+
+    <div class="col-12 border-bottom mt-5">
+        <h2 class="text-primary">@title</h2>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Name" class="form-control" placeholder="Ejemplo: Administrador" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Active"></label>
+            </div>
+            <div class="col-4">
+                <select asp-for="Active" class="form-control">
+                    <option value=true>Activo</option>
+                    <option value=false>Inactivo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.Id != 0)
+                {
+                    <partial name="_ButtonsUpdateAndReturn" model="Model.Id" />
+                }
+                else
+                {
+                    <partial name="_ButtonsCreateAndReturn" />
+                }
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -15,6 +15,7 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         public DbSet<Department> Departments { get; set; }
         public DbSet<EducationLevel> EducationLevels { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<InstitutionContactCharge> InstitutionContactCharges { get; set; }
         public DbSet<InstitutionType> InstitutionTypes { get; set; }
         public DbSet<Career> Careers { get; set; }
         public DbSet<ProgramType> ProgramTypes { get; set; }
@@ -33,8 +34,12 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
             modelBuilder.Entity<City>()
                 .HasIndex(c => new { c.Name, c.DepartmentId })
                 .IsUnique();
-        }
 
+            modelBuilder.Entity<InstitutionContactCharge>()
+                .HasIndex(icc => icc.Name)
+                .IsUnique();
+
+        }
 
     }
 }

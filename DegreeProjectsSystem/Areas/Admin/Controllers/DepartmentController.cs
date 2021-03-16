@@ -15,6 +15,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         {
             _unitWork = unitWork;
         }
+        enum Action
+        {
+            Create,
+            Update,
+            None
+        }
         public IActionResult Index()
         {
             return View();
@@ -45,19 +51,29 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                Action action = Action.None;
                 if (department.Id == 0)
                 {
-                    TempData["Create"] = "Departamento creado correctamente";
+                    action = Action.Create;
                     _unitWork.Department.Add(department);
                 }
                 else
                 {
-                    TempData["Update"] = "Departamento actualizado correctamente";
+                    action = Action.Update;
                     _unitWork.Department.Update(department);
                 }
                 try
                 {
                     _unitWork.Save();
+                    if (action == Action.Create)
+                    {
+                        TempData["Create"] = "Departamento creado correctamente";
+                    }
+                    if (action == Action.Update)
+                    {
+                        TempData["Update"] = "Departamento actualizado correctamente";
+                    }
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException dbUpdateException)
