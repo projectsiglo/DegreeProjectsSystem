@@ -28,6 +28,10 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Career>()
+                .HasIndex(ca => new { ca.Name, ca.ProgramTypeId })
+                .IsUnique();
+
             modelBuilder.Entity<City>()
                 .HasIndex(c => new { c.Name, c.DepartmentId })
                 .IsUnique();
@@ -35,6 +39,14 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
             modelBuilder.Entity<Department>()
                 .HasIndex(t => t.Name)
                 .IsUnique();
+
+            modelBuilder.Entity<EducationLevel>()
+                .HasIndex(el => el.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<Faculty>()
+               .HasIndex(f => f.Name)
+               .IsUnique();
 
             modelBuilder.Entity<InstitutionContactCharge>()
                 .HasIndex(icc => icc.Name)
@@ -44,6 +56,25 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
                 .HasIndex(idt => idt.Name)
                 .IsUnique();
 
+            modelBuilder.Entity<InstitutionType>()
+                .HasIndex(it => it.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<ProgramType>()
+               .HasIndex(pt => new { pt.Name, pt.EducationLevelId })
+               .IsUnique();
+
+            modelBuilder.Entity<Submodality>()
+                .HasIndex(s => s.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<TeachingFunction>()
+                .HasIndex(tf => tf.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<TypePerson>()
+               .HasIndex(tp => tp.Name)
+               .IsUnique();
         }
 
     }

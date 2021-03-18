@@ -6,6 +6,7 @@ namespace DegreeProjectsSystem.Models
     {
         [Key]
         public int Id { get; set; }
+        
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar el cargo de un contacto")]
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener menos de {1} caracteres")]
         [Display(Name = "Nombre")]

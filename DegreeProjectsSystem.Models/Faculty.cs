@@ -12,10 +12,6 @@ namespace DegreeProjectsSystem.Models
         [Display(Name = "Nombre")]
         public string Name { get; set; }
 
-        
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar el nombre de una Facultad")] 
-        public int EducationLevelId { get; set; }
-
         [Display(Name = "Estado")]
         public bool Active { get; set; }
     }

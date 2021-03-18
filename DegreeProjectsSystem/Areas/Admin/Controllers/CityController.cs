@@ -83,11 +83,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        TempData["Create"] = "Ciudad creada correctamente";
+                        TempData["Create"] = "Ciudad creada correctamente.";
                     }
                     if (action == Action.Update)
                     {
-                        TempData["Update"] = "Ciudad actualizada correctamente";
+                        TempData["Update"] = "Ciudad actualizada correctamente.";
                     }
                     return RedirectToAction(nameof(Index));
                 }
@@ -95,7 +95,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_Cities_Name_DepartmentId"))
                     {
-                        TempData["Error"] = "Ya existe una Ciudad con el mismo nombre";
+                        TempData["Error"] = "Ya existe una Ciudad con el mismo nombre.";
 
                         cityViewModel.DepartmentList = _unitWork.Department.GetAll().Select(d => new SelectListItem
                         {

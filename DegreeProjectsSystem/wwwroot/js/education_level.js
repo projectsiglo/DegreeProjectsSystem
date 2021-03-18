@@ -32,6 +32,7 @@ function loadDataTable() {
             {
                 "data": "id",
                 "render": function (data) {
+
                     return `
                             <div class="text-center">
                                 <a href="/Admin/EducationLevel/InsertOrUpdateEducationLevel/${data}" class="btn btn-warning text-white" style="cursor:pointer;">

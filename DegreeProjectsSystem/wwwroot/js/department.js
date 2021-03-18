@@ -48,6 +48,7 @@ function loadDataTable() {
     });
 }
 
+$(".notification").delay(2000).fadeOut(1500, "swing");
 
 function Delete(url) {
 

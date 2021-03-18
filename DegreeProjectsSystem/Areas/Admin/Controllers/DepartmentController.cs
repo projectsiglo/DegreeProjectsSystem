@@ -67,11 +67,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        TempData["Create"] = "Departamento creado correctamente";
+                        TempData["Create"] = "Departamento creado correctamente.";
                     }
                     if (action == Action.Update)
                     {
-                        TempData["Update"] = "Departamento actualizado correctamente";
+                        TempData["Update"] = "Departamento actualizado correctamente.";
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -80,7 +80,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_Departments_Name"))
                     {
-                        TempData["Error"] = "Ya existe un Departamento con el mismo nombre";
+                        TempData["Error"] = "Ya existe un Departamento con el mismo nombre.";
                         return View(department);
                     }
                     else
