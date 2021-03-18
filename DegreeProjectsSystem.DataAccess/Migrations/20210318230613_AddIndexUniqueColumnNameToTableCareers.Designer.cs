@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DegreeProjectsSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210318051917_AddCompositeIndexUniqueColumnsNameProgramTypeIdToTableCareer")]
-    partial class AddCompositeIndexUniqueColumnsNameProgramTypeIdToTableCareer
+    [Migration("20210318230613_AddIndexUniqueColumnNameToTableCareers")]
+    partial class AddIndexUniqueColumnNameToTableCareers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,10 +44,10 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProgramTypeId");
-
-                    b.HasIndex("Name", "ProgramTypeId")
+                    b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("ProgramTypeId");
 
                     b.ToTable("Careers");
                 });

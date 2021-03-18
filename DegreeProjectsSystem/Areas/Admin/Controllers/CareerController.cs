@@ -99,7 +99,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 }
                 catch (DbUpdateException dbUpdateException)
                 {
-                    if (dbUpdateException.InnerException.Message.Contains("IX_Careers_Name_ProgramTypeId"))
+                    if (dbUpdateException.InnerException.Message.Contains("IX_Careers_Name"))
                     {
                         _notifyService.Warning("Ya existe un Programa con el mismo nombre.");
 

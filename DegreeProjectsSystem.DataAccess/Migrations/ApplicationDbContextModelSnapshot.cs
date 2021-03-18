@@ -42,10 +42,10 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProgramTypeId");
-
-                    b.HasIndex("Name", "ProgramTypeId")
+                    b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("ProgramTypeId");
 
                     b.ToTable("Careers");
                 });

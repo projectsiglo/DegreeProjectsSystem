@@ -29,7 +29,7 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Career>()
-                .HasIndex(ca => new { ca.Name, ca.ProgramTypeId })
+                .HasIndex(ca => ca.Name)
                 .IsUnique();
 
             modelBuilder.Entity<City>()
