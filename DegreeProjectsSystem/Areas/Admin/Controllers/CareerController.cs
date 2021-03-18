@@ -1,8 +1,11 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using DegreeProjectsSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace DegreeProjectsSystem.Areas.Admin.Controllers
@@ -12,9 +15,20 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     {
         private readonly IUnitWork _unitWork;
 
-        public CareerController(IUnitWork unitWork)
+        public INotyfService _notifyService { get; }
+
+
+        public CareerController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;
+            _notifyService = notifyService;
+        }
+
+        enum Action
+        {
+            Create,
+            Update,
+            None
         }
         public IActionResult Index()
         {
@@ -25,7 +39,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         {
             CareerViewModel careerViewModel = new CareerViewModel()
             {
-                Career= new Career(),
+                Career = new Career(),
                 ProgramTypeList = _unitWork.ProgramType.GetAll().Select(pt => new SelectListItem
                 {
                     Text = pt.Name,
@@ -52,22 +66,75 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult InsertOrUpdateCareer(Career career)
+        public IActionResult InsertOrUpdateCareer(CareerViewModel careerViewModel)
         {
+            Action action = Action.None;
             if (ModelState.IsValid)
             {
-                if (career.Id == 0)
+                if (careerViewModel.Career.Id == 0)
                 {
-                    _unitWork.Career.Add(career);
+                    action = Action.Create;
+                    _unitWork.Career.Add(careerViewModel.Career);
                 }
                 else
                 {
-                    _unitWork.Career.Update(career);
+                    action = Action.Update;
+                    _unitWork.Career.Update(careerViewModel.Career);
                 }
-                _unitWork.Save();
-                return RedirectToAction(nameof(Index));
+
+                try
+                {
+                    _unitWork.Save();
+
+                    if (action == Action.Create)
+                    {
+                        _notifyService.Success("Programa creado correctamente.");
+                    }
+                    if (action == Action.Update)
+                    {
+                        _notifyService.Success("Programa actualizado correctamente.");
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("IX_Careers_Name_ProgramTypeId"))
+                    {
+                        _notifyService.Warning("Ya existe un Programa con el mismo nombre.");
+
+                        careerViewModel.ProgramTypeList = _unitWork.Career.GetAll().Select(pt => new SelectListItem
+                        {
+                            Text = pt.Name,
+                            Value = pt.Id.ToString()
+                        });
+
+                        return View(careerViewModel);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
             }
-            return View(career);
+            else
+            {
+                careerViewModel.ProgramTypeList = _unitWork.Career.GetAll().Select(pt => new SelectListItem
+                {
+                    Text = pt.Name,
+                    Value = pt.Id.ToString()
+                });
+
+                if (careerViewModel.Career.Id != 0)
+                {
+                    careerViewModel.Career = _unitWork.Career.Get(careerViewModel.Career.Id);
+                }
+            }
+            return View(careerViewModel);
         }
 
         #region API

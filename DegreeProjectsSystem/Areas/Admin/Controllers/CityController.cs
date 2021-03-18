@@ -78,6 +78,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     action = Action.Update;
                     _unitWork.City.Update(cityViewModel.City);
                 }
+
                 try
                 {
                     _unitWork.Save();

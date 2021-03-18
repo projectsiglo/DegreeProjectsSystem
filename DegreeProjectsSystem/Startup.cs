@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using DegreeProjectsSystem.DataAccess.Repository;
 using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
@@ -33,6 +35,13 @@ namespace DegreeProjectsSystem
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
             services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
+            
+            /*  Configuration Messages of Notify*/
+            services.AddNotyf(config => 
+                { 
+                    config.DurationInSeconds = 4; 
+                    config.IsDismissable = true;
+                    config.Position = NotyfPosition.TopRight; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +65,8 @@ namespace DegreeProjectsSystem
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseNotyf();
 
             app.UseEndpoints(endpoints =>
             {
