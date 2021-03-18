@@ -103,7 +103,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     {
                         _notifyService.Warning("Ya existe un Programa con el mismo nombre.");
 
-                        careerViewModel.ProgramTypeList = _unitWork.Career.GetAll().Select(pt => new SelectListItem
+                        careerViewModel.ProgramTypeList = _unitWork.ProgramType.GetAll().Select(pt => new SelectListItem
                         {
                             Text = pt.Name,
                             Value = pt.Id.ToString()
@@ -123,7 +123,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             }
             else
             {
-                careerViewModel.ProgramTypeList = _unitWork.Career.GetAll().Select(pt => new SelectListItem
+                careerViewModel.ProgramTypeList = _unitWork.ProgramType.GetAll().Select(pt => new SelectListItem
                 {
                     Text = pt.Name,
                     Value = pt.Id.ToString()
@@ -145,7 +145,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return Json(new { data = careers });
         }
 
-        //Eliminación de registro lógica
+        //Eliminación lógica de registro 
         [HttpPost]
         public IActionResult DeleteCareer(int id)
         {
