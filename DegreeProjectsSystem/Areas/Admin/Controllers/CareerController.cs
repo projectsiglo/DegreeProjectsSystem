@@ -14,10 +14,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class CareerController : Controller
     {
         private readonly IUnitWork _unitWork;
-
         public INotyfService _notifyService { get; }
-
-
         public CareerController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;

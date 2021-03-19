@@ -1,4 +1,5 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using DegreeProjectsSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class CityController : Controller
     {
         private readonly IUnitWork _unitWork;
+        public INotyfService _notifyService { get; }
 
-        public CityController(IUnitWork unitWork)
+        public CityController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;
+            _notifyService = notifyService;
         }
 
         enum Action
@@ -84,11 +87,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        TempData["Create"] = "Ciudad creada correctamente.";
+                        _notifyService.Success("Ciudad creada correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        TempData["Update"] = "Ciudad actualizada correctamente.";
+                        _notifyService.Success("Ciudad actualizada correctamente.");
                     }
                     return RedirectToAction(nameof(Index));
                 }
@@ -96,7 +99,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_Cities_Name_DepartmentId"))
                     {
-                        TempData["Error"] = "Ya existe una Ciudad con el mismo nombre.";
+
+                        _notifyService.Warning("Ya existe un Ciudad con el mismo nombre.");
 
                         cityViewModel.DepartmentList = _unitWork.Department.GetAll().Select(d => new SelectListItem
                         {
