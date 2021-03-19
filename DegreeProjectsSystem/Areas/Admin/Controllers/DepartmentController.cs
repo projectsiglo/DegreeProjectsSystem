@@ -118,7 +118,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
             if (departmentDb == null)
             {
-                return Json(new { succes = false, message = "!!Error al borrar Departamento!! " });
+                return Json(new { succes = false, message = "!!Error al borrar Departamento!!." });
             }
 
             departmentDb.Active = false;
@@ -126,7 +126,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             _unitWork.Save();
 
 
-            return Json(new { succes = true, message = "Departamento borrado exitosamente" });
+            return Json(new { succes = true, message = "Departamento borrado exitosamente." });
 
         }
 

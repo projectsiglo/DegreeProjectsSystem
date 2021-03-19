@@ -1,5 +1,5 @@
 ﻿var dataTable;
-
+var active;
 $(document).ready(function () {
     loadDataTable();
 });
@@ -18,6 +18,7 @@ function loadDataTable() {
             {
                 "data": "active",
                 "render": function (data) {
+                    active = data;
                     if (data) {
                         return `
                                   <div class="status-active text-center">Activo</div>
@@ -33,7 +34,23 @@ function loadDataTable() {
             {
                 "data": "id",
                 "render": function (data) {
-                    return `
+                /* Si el registro está deshabilitado deshabilita el icono 
+                   de eliminar mediante la propiedad disabled.
+                */
+                    if (!active) {
+                        return `
+                            <div class="text-center">
+                                <a href="/Admin/Career/InsertOrUpdateCareer/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                    <i class="far fa-edit"></i>
+                                </a>
+                                <a onclick=Delete("/Admin/Career/DeleteCareer/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;" >
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </div>
+                         `;
+                    }
+                    else {
+                        return `
                             <div class="text-center">
                                 <a href="/Admin/Career/InsertOrUpdateCareer/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit"></i>
@@ -43,12 +60,13 @@ function loadDataTable() {
                                 </a>
                             </div>
                          `;
+
+                    }
                     }, "width": "20%"
             }
         ]
     });
 }
-
 
 function Delete(url) {
 
@@ -65,11 +83,29 @@ function Delete(url) {
                 url: url,
                 success: function (data) {
                     if (data) {
-                        toastr.success(data.message);
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "200",
+                            "hideDuration": "1000",
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        toastr["success"](data.message);
+
                         dataTable.ajax.reload();
                     }
                     else {
-                        toastr.error(data.message);
+                        toastr["error"](data.message);
                         dataTable.ajax.reload();
                     }
                 }

@@ -51,7 +51,6 @@ function loadDataTable() {
 
 
 function Delete(url) {
-
     swal({
         title: "Esta Seguro que quiere Eliminar el Nível Educativo?",
         text: "Este registro se puede  recuperar actualizando su estado a Activo",
@@ -65,11 +64,29 @@ function Delete(url) {
                 url: url,
                 success: function (data) {
                     if (data) {
-                        toastr.success(data.message);
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "200",
+                            "hideDuration": "1000",
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        toastr["success"](data.message);
+
                         dataTable.ajax.reload();
                     }
                     else {
-                        toastr.error(data.message);
+                        toastr["error"](data.message);
                         dataTable.ajax.reload();
                     }
                 }

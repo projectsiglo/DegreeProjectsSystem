@@ -98,7 +98,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_Careers_Name"))
                     {
-                        _notifyService.Warning("Ya existe un Programa con el mismo nombre.");
+                        _notifyService.Error("Ya existe un Programa con el mismo nombre.");
 
                         careerViewModel.ProgramTypeList = _unitWork.ProgramType.GetAll().Select(pt => new SelectListItem
                         {
@@ -152,7 +152,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
             if (careerDb == null)
             {
-                return Json(new { succes = false, message = "!!Error al borrar el programa!! " });
+                return Json(new { succes = false, message = "!!Error al borrar el programa!!." });
             }
 
             careerDb.Active = false;
@@ -160,7 +160,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             _unitWork.Save();
 
 
-            return Json(new { succes = true, message = "Programa borrado exitosamente" });
+            return Json(new { succes = true, message = "Programa borrado exitosamente." });
 
         }
 

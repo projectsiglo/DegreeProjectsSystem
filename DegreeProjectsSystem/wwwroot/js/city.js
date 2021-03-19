@@ -49,13 +49,10 @@ function loadDataTable() {
     });
 }
 
-$(".notification").delay(2000).fadeOut(1500, "swing");
-
 function Delete(url) {
-
     swal({
-        title: "Esta Seguro que quiere Eliminar la Ciudad?",
-        text: "Este registro se puede  recuperar actualizando su estado a Activo",
+        title: "Esta Seguro que quiere Eliminar la Ciudad?.",
+        text: "Este registro se puede  recuperar actualizando su estado a Activo.",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -66,11 +63,28 @@ function Delete(url) {
                 url: url,
                 success: function (data) {
                     if (data) {
-                        toastr.success(data.message);
+                        toastr.options = {
+                            "closeButton": true,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": true,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "200",
+                            "hideDuration": "1000",
+                            "timeOut": "3000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        toastr["success"](data.message);
                         dataTable.ajax.reload();
                     }
                     else {
-                        toastr.error(data.message);
+                        toastr["error"](data.message);
                         dataTable.ajax.reload();
                     }
                 }

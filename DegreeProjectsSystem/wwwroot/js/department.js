@@ -49,10 +49,9 @@ function loadDataTable() {
 }
 
 function Delete(url) {
-
     swal({
-        title: "Esta Seguro que quiere Eliminar el Departamento?",
-        text: "Este registro se puede  recuperar actualizando su estado a Activo",
+        title: "Esta Seguro que quiere Eliminar el Departamento?.",
+        text: "Este registro se puede  recuperar actualizando su estado a Activo.",
         icon: "warning",
         buttons: true,
         dangerMode: true
@@ -81,7 +80,6 @@ function Delete(url) {
                             "hideMethod": "fadeOut"
                         }
                         toastr["success"](data.message);
-                       
                         dataTable.ajax.reload();
                     }
                     else {

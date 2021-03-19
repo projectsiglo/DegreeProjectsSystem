@@ -155,7 +155,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
             if (cityDb == null)
             {
-                return Json(new { succes = false, message = "!!Error al borrar ciudad!! " });
+                return Json(new { succes = false, message = "!!Error al borrar ciudad!!." });
             }
 
             cityDb.Active = false;
@@ -163,7 +163,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             _unitWork.Save();
 
 
-            return Json(new { succes = true, message = "Ciudad borrada exitosamente" });
+            return Json(new { succes = true, message = "Ciudad borrada exitosamente." });
 
         }
 
