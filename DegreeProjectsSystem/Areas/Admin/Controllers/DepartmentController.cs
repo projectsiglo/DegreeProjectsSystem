@@ -1,4 +1,5 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class DepartmentController : Controller
     {
         private readonly IUnitWork _unitWork;
+        public INotyfService _notifyService { get; }
 
-        public DepartmentController(IUnitWork unitWork)
+        public DepartmentController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;
+            _notifyService = notifyService;
         }
         enum Action
         {
@@ -35,6 +38,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 // Crea un nuevo registro
                 return View(department);
             }
+            
             // Actualiza el registro
             department = _unitWork.Department.Get(id.GetValueOrDefault());
             if (department == null)
@@ -67,11 +71,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        TempData["Create"] = "Departamento creado correctamente.";
+                        _notifyService.Success("Departamento creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        TempData["Update"] = "Departamento actualizado correctamente.";
+                        _notifyService.Success("Departamento actualizado correctamente.");
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -80,7 +84,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_Departments_Name"))
                     {
-                        TempData["Error"] = "Ya existe un Departamento con el mismo nombre.";
+                        _notifyService.Warning("Ya existe un Departamento con el mismo nombre.");
                         return View(department);
                     }
                     else
@@ -104,7 +108,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return Json(new { data = departments });
         }
 
-        //Eliminación de registro lógica
+        //Eliminación lógica de registro 
         [HttpPost]
         public IActionResult DeleteDepartment(int id)
         {
