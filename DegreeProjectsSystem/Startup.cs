@@ -6,7 +6,6 @@ using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,7 +33,6 @@ namespace DegreeProjectsSystem
             services.AddScoped<IUnitWork, UnitWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
-            services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
             
             /*  Configuration Messages of Notify*/
             services.AddNotyf(config => 
