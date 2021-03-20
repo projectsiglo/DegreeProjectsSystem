@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         language: {
-                   "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
         },
         "ajax": {
             "url": "/Admin/City/GetAllCities"
@@ -18,18 +18,18 @@ function loadDataTable() {
             {
                 "data": "active",
                 "render": function (data) {
-                    active = data;
-                    if (data) {
-                        return `
-                                  <div class="status-active text-center">Activo</div>
-                               `
-                    }
-                    else {
-                        return `      
-                                  <div class="status-inactive text-center">Inactivo</div>
-                               `
-                    }
-                }, "width": "10%"
+                active = data;
+                if (data) {
+                    return `
+                                <div class="status-active text-center">Activo</div>
+                            `
+                }
+                else {
+                    return `      
+                                <div class="status-inactive text-center">Inactivo</div>
+                            `
+                }
+            }, "width": "10%"
             },
             {
                 "data": "id",
@@ -57,7 +57,7 @@ function loadDataTable() {
                                 </a>
                             </div >
                          `;
-                    }   
+                    }
                 }, "width": "20%"
             }
         ]
