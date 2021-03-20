@@ -1,9 +1,13 @@
 ﻿@model int  
 <div class="row">
     <div class="col">
-        <button type="submit" class="btn btn-primary form-control" asp-route-id="@Model">Actualizar</button>
+        <button type="submit" class="btn btn-primary form-control" asp-route-id="@Model">
+            <i class="far fa-save"><span class="ml-1 font-menu">Actualizar</span></i>
+        </button>
     </div>
     <div class="col">
-        <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+        <a asp-action="Index" class="btn btn-success form-control">
+            <i class="far fa-hand-point-left"><span class="ml-1 font-menu">Regresar</span></i>
+        </a>
     </div>
 </div>
