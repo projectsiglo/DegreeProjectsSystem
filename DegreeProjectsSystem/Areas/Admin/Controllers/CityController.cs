@@ -100,7 +100,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     if (dbUpdateException.InnerException.Message.Contains("IX_Cities_Name_DepartmentId"))
                     {
 
-                        _notifyService.Warning("Ya existe un Ciudad con el mismo nombre.");
+                        _notifyService.Error("Ya existe un Ciudad con el mismo nombre.");
 
                         cityViewModel.DepartmentList = _unitWork.Department.GetAll().Select(d => new SelectListItem
                         {

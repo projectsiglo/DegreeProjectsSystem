@@ -43,7 +43,7 @@ function loadDataTable() {
                                 <a href="/Admin/Career/InsertOrUpdateCareer/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a onclick=Delete("/Admin/Career/DeleteCareer/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;" >
+                                <a onclick=Delete("/Admin/Career/DeleteCareer/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -60,9 +60,8 @@ function loadDataTable() {
                                 </a>
                             </div>
                          `;
-
                     }
-                    }, "width": "20%"
+                }, "width": "20%"
             }
         ]
     });
@@ -101,7 +100,6 @@ function Delete(url) {
                             "hideMethod": "fadeOut"
                         }
                         toastr["success"](data.message);
-
                         dataTable.ajax.reload();
                     }
                     else {
