@@ -1,4 +1,5 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class InstitutionContactChargeController : Controller
     {
         private readonly IUnitWork _unitWork;
+        public INotyfService _notifyService { get; }
 
-        public InstitutionContactChargeController(IUnitWork unitWork)
+        public InstitutionContactChargeController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;
+            _notifyService = notifyService;
         }
         enum Action
         {
@@ -67,11 +70,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        TempData["Create"] = "Cargo contacto institución creado correctamente";
+                        _notifyService.Success("Cargo contacto institución creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        TempData["Update"] = "Cargo contacto institución actualizado correctamente";
+                        _notifyService.Success("Cargo contacto institución actualizado correctamente.");
                     }
                     return RedirectToAction(nameof(Index));
                 }
@@ -79,7 +82,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_InstitutionContactCharges_Name"))
                     {
-                        TempData["Error"] = "Ya existe un cargo contacto institución con el mismo nombre";
+                        _notifyService.Error("Ya existe un cargo contacto institución con el mismo nombre.");
                         return View(institutionContactCharge);
                     }
                     else
@@ -113,7 +116,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
             if (institutionContactChargeDb == null)
             {
-                return Json(new { succes = false, message = "!!Error al borrar cargo contacto institución!! " });
+                return Json(new { succes = false, message = "!!Error al borrar cargo contacto institución!!. " });
             }
 
             institutionContactChargeDb.Active = false;
@@ -121,7 +124,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             _unitWork.Save();
 
 
-            return Json(new { succes = true, message = "Cargo contacto institución borrado exitosamente" });
+            return Json(new { succes = true, message = "Cargo contacto institución borrado exitosamente." });
 
         }
 
