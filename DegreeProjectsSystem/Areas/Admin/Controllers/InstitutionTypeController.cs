@@ -1,6 +1,9 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DegreeProjectsSystem.Areas.Admin.Controllers
 {
@@ -9,9 +12,18 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     {
         private readonly IUnitWork _unitWork;
 
-        public InstitutionTypeController(IUnitWork unitWork)
+        public INotyfService _notifyService { get; }
+
+        public InstitutionTypeController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;
+            _notifyService = notifyService;
+        }
+        enum Action
+        {
+            Create,
+            Update,
+            None
         }
         public IActionResult Index()
         {
@@ -42,19 +54,55 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult InsertOrUpdateInstitutionType(InstitutionType institutionType)
         {
+            Action action = Action.None;
             if (ModelState.IsValid)
             {
                 if (institutionType.Id == 0)
                 {
+                    action = Action.Create;
                     _unitWork.InstitutionType.Add(institutionType);
                 }
                 else
                 {
+                    action = Action.Update;
                     _unitWork.InstitutionType.Update(institutionType);
                 }
-                _unitWork.Save();
-                return RedirectToAction(nameof(Index));
+
+                try
+                {
+                    _unitWork.Save();
+
+                    if (action == Action.Create)
+                    {
+                        _notifyService.Success("Tipo de institución creada correctamente.");
+                    }
+                    if (action == Action.Update)
+                    {
+                        _notifyService.Success("Tipo de institución actualizada correctamente.");
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+
+                    if (dbUpdateException.InnerException.Message.Contains("IX_InstitutionTypes_Name"))
+                    {
+                        _notifyService.Error("Ya existe un tipo de institución con el mismo nombre.");
+
+                        return View(institutionType);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
             }
+
             return View(institutionType);
         }
 

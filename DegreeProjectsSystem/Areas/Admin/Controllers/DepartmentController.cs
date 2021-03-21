@@ -86,6 +86,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     if (dbUpdateException.InnerException.Message.Contains("IX_Departments_Name"))
                     {
                         _notifyService.Error("Ya existe un Departamento con el mismo nombre.");
+                        
                         return View(department);
                     }
                     else
@@ -98,6 +99,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     ModelState.AddModelError(string.Empty, exception.Message);
                 }
             }
+
             return View(department);
         }
 
