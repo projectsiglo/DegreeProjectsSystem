@@ -1,4 +1,5 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,10 +11,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class IdentityDocumentTypeController : Controller
     {
         private readonly IUnitWork _unitWork;
+        public INotyfService _notifyService { get; }
 
-        public IdentityDocumentTypeController(IUnitWork unitWork)
+        public IdentityDocumentTypeController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;
+            _notifyService = notifyService;
         }
         enum Action
         {
@@ -67,11 +70,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        TempData["Create"] = "Tipo de documento de identidad creado correctamente";
+                        _notifyService.Success("Tipo de documento de identidad creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        TempData["Update"] = "Tipo de documento de identidad actualizado correctamente";
+                        _notifyService.Success("Tipo de documento de identidad actualizado correctamente.");
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -80,7 +83,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_IdentityDocumentTypes_Name"))
                     {
-                        TempData["Error"] = "Ya existe un Tipo de Documento de Identidad con el mismo nombre";
+                        _notifyService.Error("Ya existe un Tipo de Documento de Identidad con el mismo nombre.");
                         return View(identityDocumentType);
                     }
                     else
