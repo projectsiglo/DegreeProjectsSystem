@@ -1,5 +1,5 @@
-﻿let dataTable;
-
+﻿var dataTable;
+var active;
 $(document).ready(function () {
     loadDataTable();
 });
@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         language: {
-                   "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
         },
         "ajax": {
             "url": "/Admin/Faculty/GetAllFaculties"
@@ -17,6 +17,7 @@ function loadDataTable() {
             {
                 "data": "active",
                 "render": function (data) {
+                    active = data;
                     if (data) {
                         return `
                                   <div class="status-active text-center">Activo</div>
@@ -32,7 +33,20 @@ function loadDataTable() {
             {
                 "data": "id",
                 "render": function (data) {
-                    return `
+                    if (!active) {
+                        return `
+                            <div class="text-center">
+                                <a href="/Admin/Faculty/InsertOrUpdateFaculty/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                    <i class="far fa-edit p-1"></i>
+                                </a>
+                                <a onclick=Delete("/Admin/Faculty/DeleteFaculty/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
+                                    <i class="far fa-trash-alt p-1"></i>
+                                </a>
+                            </div>
+                         `;
+                    }
+                    else {
+                        return `
                             <div class="text-center">
                                 <a href="/Admin/Faculty/InsertOrUpdateFaculty/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit p-1"></i>
@@ -42,12 +56,12 @@ function loadDataTable() {
                                 </a>
                             </div>
                          `;
-                    }, "width": "20%"
+                    }
+                }, "width": "20%"
             }
         ]
     });
 }
-
 
 function Delete(url) {
 
