@@ -14,14 +14,13 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class CityController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notifyService { get; }
+        public INotyfService _notyfService { get; }
 
-        public CityController(IUnitWork unitWork, INotyfService notifyService)
+        public CityController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
-            _notifyService = notifyService;
+            _notyfService = notyfService;
         }
-
         enum Action
         {
             Create, 
@@ -87,12 +86,13 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        _notifyService.Success("Ciudad creada correctamente.");
+                        _notyfService.Success("Ciudad creada correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        _notifyService.Success("Ciudad actualizada correctamente.");
+                        _notyfService.Success("Ciudad actualizada correctamente.");
                     }
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateException dbUpdateException)
@@ -100,7 +100,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     if (dbUpdateException.InnerException.Message.Contains("IX_Cities_Name_DepartmentId"))
                     {
 
-                        _notifyService.Error("Ya existe un Ciudad con el mismo nombre.");
+                        _notyfService.Error("Ya existe un Ciudad con el mismo nombre.");
 
                         cityViewModel.DepartmentList = _unitWork.Department.GetAll().Select(d => new SelectListItem
                         {

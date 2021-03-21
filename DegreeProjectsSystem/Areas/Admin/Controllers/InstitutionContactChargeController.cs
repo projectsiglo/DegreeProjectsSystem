@@ -11,12 +11,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class InstitutionContactChargeController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notifyService { get; }
+        public INotyfService _notyfService { get; }
 
-        public InstitutionContactChargeController(IUnitWork unitWork, INotyfService notifyService)
+        public InstitutionContactChargeController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
-            _notifyService = notifyService;
+            _notyfService = notyfService;
         }
         enum Action
         {
@@ -70,11 +70,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        _notifyService.Success("Cargo contacto institución creado correctamente.");
+                        _notyfService.Success("Cargo contacto institución creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        _notifyService.Success("Cargo contacto institución actualizado correctamente.");
+                        _notyfService.Success("Cargo contacto institución actualizado correctamente.");
                     }
                     return RedirectToAction(nameof(Index));
                 }
@@ -82,7 +82,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_InstitutionContactCharges_Name"))
                     {
-                        _notifyService.Error("Ya existe un cargo contacto institución con el mismo nombre.");
+                        _notyfService.Error("Ya existe un cargo contacto institución con el mismo nombre.");
+
                         return View(institutionContactCharge);
                     }
                     else

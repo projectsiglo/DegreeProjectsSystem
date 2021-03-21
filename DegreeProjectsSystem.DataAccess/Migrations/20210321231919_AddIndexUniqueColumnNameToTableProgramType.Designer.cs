@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DegreeProjectsSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210318045812_AddCompositeIndexUniqueColumnsNameEducationLevelIdToTableProgramType")]
-    partial class AddCompositeIndexUniqueColumnsNameEducationLevelIdToTableProgramType
+    [Migration("20210321231919_AddIndexUniqueColumnNameToTableProgramType")]
+    partial class AddIndexUniqueColumnNameToTableProgramType
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,9 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("ProgramTypeId");
 
@@ -237,7 +240,7 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
 
                     b.HasIndex("EducationLevelId");
 
-                    b.HasIndex("Name", "EducationLevelId")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("ProgramTypes");
@@ -260,6 +263,9 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Submodalities");
                 });
 
@@ -280,6 +286,9 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("TeachingFunctions");
                 });
 
@@ -299,6 +308,9 @@ namespace DegreeProjectsSystem.DataAccess.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("TypePeople");
                 });

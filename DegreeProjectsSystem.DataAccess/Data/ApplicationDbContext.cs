@@ -61,7 +61,7 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
                 .IsUnique();
 
             modelBuilder.Entity<ProgramType>()
-               .HasIndex(pt => new { pt.Name, pt.EducationLevelId })
+               .HasIndex(pt => new { pt.Name })
                .IsUnique();
 
             modelBuilder.Entity<Submodality>()

@@ -11,12 +11,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class EducationLevelController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notifyService { get; }
+        public INotyfService _notyfService { get; }
 
-        public EducationLevelController(IUnitWork unitWork, INotyfService notifyService)
+        public EducationLevelController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
-            _notifyService = notifyService;
+            _notyfService = notyfService;
         }
 
         enum Action
@@ -72,11 +72,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
                     if (action == Action.Create)
                     {
-                        _notifyService.Success("Nível Educativo creado correctamente.");
+                        _notyfService.Success("Nível Educativo creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        _notifyService.Success("Nível Educativo actualizado correctamente.");
+                        _notyfService.Success("Nível Educativo actualizado correctamente.");
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -86,7 +86,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
                     if (dbUpdateException.InnerException.Message.Contains("IX_EducationLevels_Name"))
                     {
-                        _notifyService.Error("Ya existe un Nível Educativo con el mismo nombre.");
+                        _notyfService.Error("Ya existe un Nível Educativo con el mismo nombre.");
+                        
                         return View(educationLevel);
                     }
                     else

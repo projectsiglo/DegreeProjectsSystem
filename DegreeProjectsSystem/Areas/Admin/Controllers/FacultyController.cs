@@ -11,12 +11,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class FacultyController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notifyService { get; }
+        public INotyfService _notyfService { get; }
 
-        public FacultyController(IUnitWork unitWork, INotyfService notifyService)
+        public FacultyController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
-            _notifyService = notifyService;
+            _notyfService = notyfService;
         }
         enum Action
         {
@@ -72,11 +72,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
                     if (action == Action.Create)
                     {
-                        _notifyService.Success("Facultad creada correctamente.");
+                        _notyfService.Success("Facultad creada correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        _notifyService.Success("Facultad actualizada correctamente.");
+                        _notyfService.Success("Facultad actualizada correctamente.");
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -86,7 +86,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
                     if (dbUpdateException.InnerException.Message.Contains("IX_Faculties_Name"))
                     {
-                        _notifyService.Error("Ya existe una Facultad con el mismo nombre.");
+                        _notyfService.Error("Ya existe una Facultad con el mismo nombre.");
                         return View(faculty);
                     }
                     else

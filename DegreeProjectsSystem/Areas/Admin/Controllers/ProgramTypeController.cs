@@ -1,8 +1,11 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using DegreeProjectsSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 
 namespace DegreeProjectsSystem.Areas.Admin.Controllers
@@ -11,10 +14,18 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class ProgramTypeController : Controller
     {
         private readonly IUnitWork _unitWork;
+        public INotyfService _notyfService { get; }
 
-        public ProgramTypeController(IUnitWork unitWork)
+        public ProgramTypeController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
+            _notyfService = notyfService;
+        }
+        enum Action
+        {
+            Create,
+            Update,
+            None
         }
         public IActionResult Index()
         {
@@ -52,22 +63,76 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult InsertOrUpdateProgramType(ProgramType programType)
+        public IActionResult InsertOrUpdateProgramType(ProgramTypeViewModel programTypeViewModel)
         {
             if (ModelState.IsValid)
             {
-                if (programType.Id == 0)
+                Action action = Action.None;
+                if (programTypeViewModel.ProgramType.Id == 0)
                 {
-                    _unitWork.ProgramType.Add(programType);
+                    action = Action.Create;
+                    _unitWork.ProgramType.Add(programTypeViewModel.ProgramType);
                 }
                 else
                 {
-                    _unitWork.ProgramType.Update(programType);
+                    action = Action.Update;
+                    _unitWork.ProgramType.Update(programTypeViewModel.ProgramType);
                 }
-                _unitWork.Save();
-                return RedirectToAction(nameof(Index));
+
+                try
+                {
+                    _unitWork.Save();
+                    if (action == Action.Create)
+                    {
+                        _notyfService.Success("Tipo de prograna creado correctamente.");
+                    }
+                    if (action == Action.Update)
+                    {
+                        _notyfService.Success("Tipo de programa actualizado correctamente.");
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+                    if (dbUpdateException.InnerException.Message.Contains("IX_ProgramTypes_Name"))
+                    {
+
+                        _notyfService.Error("Ya existe un tipo de programa con el mismo nombre.");
+
+                        programTypeViewModel.EducationLevelList = _unitWork.EducationLevel.GetAll().Select(el => new SelectListItem
+                        {
+                            Text = el.Name,
+                            Value = el.Id.ToString()
+                        });
+
+                        return View(programTypeViewModel);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
             }
-            return View(programType);
+            else
+            {
+                programTypeViewModel.EducationLevelList = _unitWork.EducationLevel.GetAll().Select(el => new SelectListItem
+                {
+                    Text = el.Name,
+                    Value = el.Id.ToString()
+                });
+
+                if (programTypeViewModel.ProgramType.Id != 0)
+                {
+                    programTypeViewModel.ProgramType = _unitWork.ProgramType.Get(programTypeViewModel.ProgramType.Id);
+                }
+            }
+
+            return View(programTypeViewModel);
         }
 
         #region API

@@ -14,11 +14,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class CareerController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notifyService { get; }
-        public CareerController(IUnitWork unitWork, INotyfService notifyService)
+        public INotyfService _notyfService { get; }
+        public CareerController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
-            _notifyService = notifyService;
+            _notyfService = notyfService;
         }
 
         enum Action
@@ -85,11 +85,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
 
                     if (action == Action.Create)
                     {
-                        _notifyService.Success("Programa creado correctamente.");
+                        _notyfService.Success("Programa creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        _notifyService.Success("Programa actualizado correctamente.");
+                        _notyfService.Success("Programa actualizado correctamente.");
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -98,7 +98,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_Careers_Name"))
                     {
-                        _notifyService.Error("Ya existe un Programa con el mismo nombre.");
+                        _notyfService.Error("Ya existe un Programa con el mismo nombre.");
 
                         careerViewModel.ProgramTypeList = _unitWork.ProgramType.GetAll().Select(pt => new SelectListItem
                         {

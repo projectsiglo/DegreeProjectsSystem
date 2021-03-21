@@ -11,12 +11,12 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class IdentityDocumentTypeController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notifyService { get; }
+        public INotyfService _notyfService { get; }
 
-        public IdentityDocumentTypeController(IUnitWork unitWork, INotyfService notifyService)
+        public IdentityDocumentTypeController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
-            _notifyService = notifyService;
+            _notyfService = _notyfService;
         }
         enum Action
         {
@@ -70,11 +70,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        _notifyService.Success("Tipo de documento de identidad creado correctamente.");
+                        _notyfService.Success("Tipo de documento de identidad creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        _notifyService.Success("Tipo de documento de identidad actualizado correctamente.");
+                        _notyfService.Success("Tipo de documento de identidad actualizado correctamente.");
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -83,7 +83,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 {
                     if (dbUpdateException.InnerException.Message.Contains("IX_IdentityDocumentTypes_Name"))
                     {
-                        _notifyService.Error("Ya existe un Tipo de Documento de Identidad con el mismo nombre.");
+                        _notyfService.Error("Ya existe un Tipo de Documento de Identidad con el mismo nombre.");
                         return View(identityDocumentType);
                     }
                     else
