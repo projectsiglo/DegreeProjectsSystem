@@ -1,5 +1,5 @@
-﻿let dataTable;
-
+﻿var dataTable;
+var active;
 $(document).ready(function () {
     loadDataTable();
 });
@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         language: {
-                    "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
         },
         "ajax": {
             "url": "/Admin/EducationLevel/GetAllEducationLevels"
@@ -17,23 +17,36 @@ function loadDataTable() {
             {
                 "data": "active",
                 "render": function (data) {
+                    active = data;
                     if (data) {
                         return `
-                                  <div class="status-active text-center">Activo</div>
-                               `
+                                <div class="status-active text-center">Activo</div>
+                            `
                     }
                     else {
                         return `      
-                                  <div class="status-inactive text-center">Inactivo</div>
-                               `
+                                <div class="status-inactive text-center">Inactivo</div>
+                            `
                     }
                 }, "width": "10%"
             },
             {
                 "data": "id",
                 "render": function (data) {
-
-                    return `
+                    if (!active) {
+                        return `
+                            <div class="text-center">
+                                <a href="/Admin/EducationLevel/InsertOrUpdateEducationLevel/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                    <i class="far fa-edit p-1"></i>
+                                </a>
+                                <a onclick=Delete("/Admin/EducationLevel/DeleteEducationLevel/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
+                                    <i class="far fa-trash-alt p-1"></i>
+                                </a>
+                            </div>
+                            `;
+                    }
+                    else {
+                        return `
                             <div class="text-center">
                                 <a href="/Admin/EducationLevel/InsertOrUpdateEducationLevel/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit p-1"></i>
@@ -42,13 +55,13 @@ function loadDataTable() {
                                     <i class="far fa-trash-alt p-1"></i>
                                 </a>
                             </div>
-                         `;
-                    }, "width": "20%"
+                            `;
+                    }
+                }, "width": "20%"
             }
         ]
     });
 }
-
 
 function Delete(url) {
     swal({
@@ -82,7 +95,6 @@ function Delete(url) {
                             "hideMethod": "fadeOut"
                         }
                         toastr["success"](data.message);
-
                         dataTable.ajax.reload();
                     }
                     else {

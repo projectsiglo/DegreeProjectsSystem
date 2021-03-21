@@ -69,6 +69,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 try
                 {
                     _unitWork.Save();
+                   
                     if (action == Action.Create)
                     {
                         _notifyService.Success("Departamento creado correctamente.");

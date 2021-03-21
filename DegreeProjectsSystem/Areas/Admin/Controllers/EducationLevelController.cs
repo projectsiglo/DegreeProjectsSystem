@@ -1,6 +1,9 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DegreeProjectsSystem.Areas.Admin.Controllers
 {
@@ -8,10 +11,19 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class EducationLevelController : Controller
     {
         private readonly IUnitWork _unitWork;
+        public INotyfService _notifyService { get; }
 
-        public EducationLevelController(IUnitWork unitWork)
+        public EducationLevelController(IUnitWork unitWork, INotyfService notifyService)
         {
             _unitWork = unitWork;
+            _notifyService = notifyService;
+        }
+
+        enum Action
+        {
+            Create,
+            Update,
+            None
         }
         public IActionResult Index()
         {
@@ -43,16 +55,49 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                Action action = Action.None;
                 if (educationLevel.Id == 0)
                 {
+                    action = Action.Create;
                     _unitWork.EducationLevel.Add(educationLevel);
                 }
                 else
                 {
+                    action = Action.Update;
                     _unitWork.EducationLevel.Update(educationLevel);
                 }
-                _unitWork.Save();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    _unitWork.Save();
+
+                    if (action == Action.Create)
+                    {
+                        _notifyService.Success("Nível Educativo creado correctamente.");
+                    }
+                    if (action == Action.Update)
+                    {
+                        _notifyService.Success("Nível Educativo actualizado correctamente.");
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+
+                    if (dbUpdateException.InnerException.Message.Contains("IX_EducationLevels_Name"))
+                    {
+                        _notifyService.Error("Ya existe un Nível Educativo con el mismo nombre.");
+                        return View(educationLevel);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
             }
             return View(educationLevel);
         }

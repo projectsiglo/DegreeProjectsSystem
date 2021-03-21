@@ -7,7 +7,7 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         language: {
-                   "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
+            "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
         },
         "ajax": {
             "url": "/Admin/Career/GetAllCareers"
@@ -34,9 +34,9 @@ function loadDataTable() {
             {
                 "data": "id",
                 "render": function (data) {
-                /* Si el registro está deshabilitado deshabilita el icono 
-                   de eliminar mediante la propiedad disabled.
-                */
+                    /* Si el registro está deshabilitado deshabilita el icono 
+                       de eliminar mediante la propiedad disabled.
+                    */
                     if (!active) {
                         return `
                             <div class="text-center">
