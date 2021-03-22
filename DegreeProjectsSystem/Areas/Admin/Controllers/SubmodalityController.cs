@@ -1,6 +1,9 @@
-﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace DegreeProjectsSystem.Areas.Admin.Controllers
 {
@@ -8,10 +11,18 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class SubmodalityController : Controller
     {
         private readonly IUnitWork _unitWork;
+        public INotyfService _notyfService { get; }
 
-        public SubmodalityController(IUnitWork unitWork)
+        public SubmodalityController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
+            _notyfService = notyfService;
+        }
+        enum Action
+        {
+            Create,
+            Update,
+            None
         }
         public IActionResult Index()
         {
@@ -44,19 +55,56 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                Action action = Action.None;
                 if (submodality.Id == 0)
                 {
+                    action = Action.Create;
                     _unitWork.Submodality.Add(submodality);
                 }
                 else
                 {
+                    action = Action.Update;
                     _unitWork.Submodality.Update(submodality);
                 }
-                _unitWork.Save();
-                return RedirectToAction(nameof(Index));
+
+                try
+                {
+                    _unitWork.Save();
+
+                    if (action == Action.Create)
+                    {
+                        _notyfService.Success("Submodalidad creada correctamente.");
+                    }
+                    if (action == Action.Update)
+                    {
+                        _notyfService.Success("Submodalidad actualizada correctamente.");
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateException dbUpdateException)
+                {
+
+                    if (dbUpdateException.InnerException.Message.Contains("IX_Submodalities_Name"))
+                    {
+                        _notyfService.Error("Ya existe una submodalidad con el mismo nombre.");
+
+                        return View(submodality);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, dbUpdateException.InnerException.Message);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    ModelState.AddModelError(string.Empty, exception.Message);
+                }
             }
+
             return View(submodality);
         }
+      
 
         #region API
         [HttpGet]
