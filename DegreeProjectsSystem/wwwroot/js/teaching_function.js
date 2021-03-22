@@ -1,4 +1,5 @@
-﻿let dataTable;
+﻿var dataTable;
+var active;
 
 $(document).ready(function () {
     loadDataTable();
@@ -17,6 +18,7 @@ function loadDataTable() {
             {
                 "data": "active",
                 "render": function (data) {
+                    active = data;
                     if (data) {
                         return `
                                   <div class="status-active text-center">Activo</div>
@@ -32,7 +34,19 @@ function loadDataTable() {
             {
                 "data": "id",
                 "render": function (data) {
-                    return `
+                    if (!active) {
+                        return `
+                            <div class="text-center">
+                                <a href="/Admin/TeachingFunction/InsertOrUpdateTeachingFunction/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                    <i class="far fa-edit"></i>
+                                </a>
+                                <a onclick=Delete("/Admin/TeachingFunction/DeleteTeachingFunction/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </div>
+                         `;
+                    } else {
+                        return `
                             <div class="text-center">
                                 <a href="/Admin/TeachingFunction/InsertOrUpdateTeachingFunction/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit"></i>
@@ -42,6 +56,8 @@ function loadDataTable() {
                                 </a>
                             </div>
                          `;
+                    }
+                    
                     }, "width": "20%"
             }
         ]
