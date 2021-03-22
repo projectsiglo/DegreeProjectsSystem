@@ -1,18 +1,18 @@
-﻿@model DegreeProjectsSystem.Models.ViewModels.ProgramTypeViewModel
+﻿@model DegreeProjectsSystem.Models.ViewModels.DepartmentFacultyViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var title = "Crear Tipo De Programa";
+    var title = "Crear Departamento De Facultad";
 }
 
 <form method="post">
     <div class="row p-3 border-0">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
-    @if (Model.ProgramType.Id != 0)
+    @if (Model.DepartmentFaculty.Id != 0)
     {
         // Actualizar
-        title = "Actualizar Tipo De Programa";
-        <input type="hidden" asp-for="ProgramType.Id" />
+        title = "Actualizar Departamento De Facultad";
+        <input type="hidden" asp-for="DepartmentFaculty.Id" />
     }
 
     <div class="col-12 border-bottom mt-5">
@@ -21,23 +21,23 @@
     <div class="col-8 pt-4">
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="ProgramType.Name"></label>
+                <label asp-for="DepartmentFaculty.Name"></label>
             </div>
             <div class="col-8">
-                <input asp-for="ProgramType.Name" class="form-control" placeholder="Ejemplo: Maestría" />
-                <span asp-validation-for="ProgramType.Name" class="text-danger"></span>
+                <input asp-for="DepartmentFaculty.Name" class="form-control" placeholder="Ejemplo: Ciencias Aplicadas" />
+                <span asp-validation-for="DepartmentFaculty.Name" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group row">
             <div class="col-4">
-                Nível Educativo:
+                Facultad:
             </div>
             <div class="col-8">
-                @Html.DropDownListFor(ne => ne.ProgramType.EducationLevelId, Model.EducationLevelList, 
-                "Seleccione un nível educativo....",
-                new {@class ="form-control"}) 
-                <span asp-validation-for="ProgramType.EducationLevelId" class="text-danger"></span>
+                @Html.DropDownListFor(ne => ne.DepartmentFaculty.FacultyId, Model.FacultyList,
+                "Seleccione una facultad....",
+                new { @class = "form-control" })
+                <span asp-validation-for="DepartmentFaculty.Faculty" class="text-danger"></span>
             </div>
         </div>
 
@@ -45,10 +45,10 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <label asp-for="ProgramType.Active"></label>
+                <label asp-for="DepartmentFaculty.Active"></label>
             </div>
             <div class="col-4">
-                <select asp-for="ProgramType.Active" class="form-control">
+                <select asp-for="DepartmentFaculty.Active" class="form-control">
                     <option value=true>Activo</option>
                     <option value=false>Inactivo</option>
                 </select>
@@ -57,9 +57,9 @@
 
         <div class="form-group row">
             <div class="col-8 offset-4">
-                @if (Model.ProgramType.Id != 0)
+                @if (Model.DepartmentFaculty.Id != 0)
                 {
-                    <partial name="_ButtonsUpdateAndReturn" model="Model.ProgramType.Id" />
+                    <partial name="_ButtonsUpdateAndReturn" model="Model.DepartmentFaculty.Id" />
                 }
                 else
                 {
@@ -75,5 +75,3 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-
-

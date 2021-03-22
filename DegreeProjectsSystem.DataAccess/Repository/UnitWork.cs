@@ -8,6 +8,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         private readonly ApplicationDbContext _db;
         public ICityRepository City { get; private set; }
         public IDepartmentRepository Department { get; private set; }
+        public IDepartmentFacultyRepository DepartmentFaculty { get; private set; }
         public IIdentityDocumentTypeRepository IdentityDocumentType { get; private set; }
         public IEducationLevelRepository EducationLevel { get; private set; }
         public IFacultyRepository Faculty { get; private set; }
@@ -25,6 +26,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             Career = new CareerRepository(_db); // Inicializamos
             City = new CityRepository(_db);
             Department = new DepartmentRepository(_db);
+            DepartmentFaculty = new DepartmentFacultyRepository(_db);
             EducationLevel = new EducationLevelRepository(_db);
             Faculty = new FacultyRepository(_db);
             IdentityDocumentType = new IdentityDocumentTypeRepository(_db);

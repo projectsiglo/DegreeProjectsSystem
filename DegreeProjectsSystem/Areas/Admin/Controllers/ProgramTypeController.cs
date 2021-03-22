@@ -84,7 +84,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        _notyfService.Success("Tipo de prograna creado correctamente.");
+                        _notyfService.Success("Tipo de programa creado correctamente.");
                     }
                     if (action == Action.Update)
                     {
@@ -160,11 +160,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             _unitWork.ProgramType.Update(programTypeDb);
             _unitWork.Save();
 
-
             return Json(new { succes = true, message = "Tipo de programa borrado exitosamente" });
-
         }
-
 
         #endregion
     }
