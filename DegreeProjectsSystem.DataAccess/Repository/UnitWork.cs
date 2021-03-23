@@ -9,6 +9,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public ICityRepository City { get; private set; }
         public IDepartmentRepository Department { get; private set; }
         public IDepartmentFacultyRepository DepartmentFaculty { get; private set; }
+        public IInstitutionRepository Institution { get; private set; }
         public IIdentityDocumentTypeRepository IdentityDocumentType { get; private set; }
         public IEducationLevelRepository EducationLevel { get; private set; }
         public IFacultyRepository Faculty { get; private set; }
@@ -29,6 +30,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             DepartmentFaculty = new DepartmentFacultyRepository(_db);
             EducationLevel = new EducationLevelRepository(_db);
             Faculty = new FacultyRepository(_db);
+            Institution = new InstitutionRepository(_db);
             IdentityDocumentType = new IdentityDocumentTypeRepository(_db);
             InstitutionContactCharge = new InstitutionContactChargeRepository(_db);
             InstitutionType = new InstitutionTypeRepository(_db);
@@ -36,7 +38,6 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             Submodality = new SubmodalityRepository(_db);
             TeachingFunction = new TeachingFunctionRepository(_db);
             TypePerson = new TypePersonRepository(_db);
-            
         }
 
         public void Save()

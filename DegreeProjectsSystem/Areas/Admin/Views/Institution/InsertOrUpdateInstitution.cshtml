@@ -1,0 +1,106 @@
+﻿@model DegreeProjectsSystem.Models.ViewModels.InstitutionViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Crear Institución";
+}
+
+<form method="post">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.Institution.Id != 0)
+    {
+        // Actualizar
+        title = "Actualizar Institución";
+        <input type="hidden" asp-for="Institution.Id" />
+    }
+
+    <div class="col-12 border-bottom mt-5">
+        <h2 class="text-primary">@title</h2>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Institution.Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Institution.Name" class="form-control" placeholder="Ejemplo: Ingenieros y Asociados SAS" />
+                <span asp-validation-for="Institution.Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                Tipo Institución
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(i => i.Institution.InstitutionTypeId, Model.InstitutionTypeList,
+                "Seleccione un Tipo de Institución....",
+                new { @class = "form-control" })
+                <span asp-validation-for="Institution.InstitutionTypeId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Institution.Nit"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Institution.Nit" class="form-control" placeholder="Ejemplo:  800.197.268-4" />
+                <span asp-validation-for="Institution.Nit" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Institution.Email"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Institution.Email" class="form-control" placeholder="Ejemplo: rrhh@ingenieros.asociados.com" />
+                <span asp-validation-for="Institution.Email" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Institution.Phone"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Institution.Phone" class="form-control" placeholder="Ejemplo: 2801203" />
+                <span asp-validation-for="Institution.Phone" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Institution.Observations"></label>
+            </div>
+            <div class="col-8">
+                <textarea asp-for="Institution.Observations" class="form-control"/></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Institution.Active"></label>
+            </div>
+            <div class="col-4">
+                <select asp-for="Institution.Active" class="form-control">
+                    <option value=true>Activo</option>
+                    <option value=false>Inactivo</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.Institution.Id != 0)
+                {
+                    <partial name="_ButtonsUpdateAndReturn" model="Model.Institution.Id" />
+                }
+                else
+                {
+                    <partial name="_ButtonsCreateAndReturn" />
+                }
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

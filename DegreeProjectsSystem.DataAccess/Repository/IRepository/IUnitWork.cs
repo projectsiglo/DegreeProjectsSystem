@@ -8,6 +8,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
         IDepartmentRepository Department{ get; }
         IDepartmentFacultyRepository DepartmentFaculty { get; }
         IEducationLevelRepository EducationLevel { get; }
+        IInstitutionRepository Institution { get; }
         IIdentityDocumentTypeRepository IdentityDocumentType { get; }
         IFacultyRepository Faculty { get; }
         IInstitutionContactChargeRepository InstitutionContactCharge { get; }
