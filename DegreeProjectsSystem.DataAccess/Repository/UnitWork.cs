@@ -6,6 +6,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
     public class UnitWork : IUnitWork
     {
         private readonly ApplicationDbContext _db;
+        public ICareerRepository Career { get; private set; }
         public ICityRepository City { get; private set; }
         public IDepartmentRepository Department { get; private set; }
         public IDepartmentFacultyRepository DepartmentFaculty { get; private set; }
@@ -15,7 +16,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public IFacultyRepository Faculty { get; private set; }
         public IInstitutionContactChargeRepository InstitutionContactCharge { get; private set; }
         public IInstitutionTypeRepository InstitutionType { get; private set; }
-        public ICareerRepository Career { get; private set; }
+        public IModalityRepository Modality { get; private set; }
         public IProgramTypeRepository ProgramType { get; private set; }
         public ISubmodalityRepository Submodality { get; private set; }
         public ITeachingFunctionRepository TeachingFunction { get; private set; }
@@ -34,6 +35,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             IdentityDocumentType = new IdentityDocumentTypeRepository(_db);
             InstitutionContactCharge = new InstitutionContactChargeRepository(_db);
             InstitutionType = new InstitutionTypeRepository(_db);
+            Modality = new ModalityRepository(_db);
             ProgramType = new ProgramTypeRepository(_db);
             Submodality = new SubmodalityRepository(_db);
             TeachingFunction = new TeachingFunctionRepository(_db);

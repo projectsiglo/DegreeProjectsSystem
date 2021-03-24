@@ -1,0 +1,79 @@
+﻿@model DegreeProjectsSystem.Models.ViewModels.ModalityViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Crear Modalidad";
+}
+
+<form method="post">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.Modality.Id != 0)
+    {
+        // Actualizar
+        title = "Actualizar Modalidad";
+        <input type="hidden" asp-for="Modality.Id" />
+    }
+
+    <div class="col-12 border-bottom mt-5">
+        <h2 class="text-primary">@title</h2>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Modality.Name"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Modality.Name" class="form-control" placeholder="Ejemplo: Práctica Profesional" />
+                <span asp-validation-for="Modality.Name" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                Nível Educativo:
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(ne => ne.Modality.EducationLevelId, Model.EducationLevelList,
+                "Seleccione un nível educativo....",
+                new { @class = "form-control" })
+                <span asp-validation-for="Modality.EducationLevelId" class="text-danger"></span>
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Modality.Active"></label>
+            </div>
+            <div class="col-4">
+                <select asp-for="Modality.Active" class="form-control">
+                    <option value=true>Activo</option>
+                    <option value=false>Inactivo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.Modality.Id != 0)
+                {
+                    <partial name="_ButtonsUpdateAndReturn" model="Model.Modality.Id" />
+                }
+                else
+                {
+                    <partial name="_ButtonsCreateAndReturn" />
+                }
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

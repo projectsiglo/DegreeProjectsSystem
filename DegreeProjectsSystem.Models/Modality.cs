@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DegreeProjectsSystem.Models
 {
-    public class ProgramType
+    public class Modality
     {
         [Key]
         public int Id { get; set; }
        
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un nombre Tipo de Programa")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresaar un nombre de Modalidad")]
         [MaxLength(50, ErrorMessage = "El campo {0} debe tener menos de {1} caracteres")]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
