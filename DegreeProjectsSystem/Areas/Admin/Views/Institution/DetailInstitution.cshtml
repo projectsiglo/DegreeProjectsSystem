@@ -15,72 +15,71 @@
         <div class="col-12 border-bottom">
             <h2 class="text-primary">@title</h2>
         </div>
-        <div class="col-8 pt-4">
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Institution.Name"></label>
-                </div>
-                <div class="col-8">
+        <div class="col-12 pt-4 ml-md-auto">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <span class="bold-label">
+                        <label asp-for="Institution.Name"></label>
+                    </span>
                     <input asp-for="Institution.Name" disabled class="form-control" />
                     <span asp-validation-for="Institution.Name" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Institution.Nit"></label>
-                </div>
-                <div class="col-8">
+                <div class="form-group col-md-6">
+                    <span class="bold-label">
+                        <label asp-for="Institution.Nit"></label>
+                    </span>
                     <input asp-for="Institution.Nit" disabled class="form-control" />
                     <span asp-validation-for="Institution.Nit" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    Tipo Institución
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <span class="bold-label">
+                        Tipo Institución
+                    </span>
                 </div>
-                <div class="col-8">
-                    @Html.DropDownListFor(it => it.Institution.InstitutionTypeId, Model.InstitutionTypeList, "Seleccione",
-                      new { @class = "form-control", @disabled = "disabled" })
-                    <span asp-validation-for="Institution.InstitutionTypeId" class="text-danger"></span>
-                </div>
+                @Html.DropDownListFor(it => it.Institution.InstitutionTypeId, Model.InstitutionTypeList, "Seleccione",
+                  new { @class = "form-control", @disabled = "disabled" })
+                <span asp-validation-for="Institution.InstitutionTypeId" class="text-danger"></span>
             </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Institution.Phone"></label>
-                </div>
-                <div class="col-8">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <span class="bold-label">
+                        <label asp-for="Institution.Phone"></label>
+                    </span>
                     <input asp-for="Institution.Phone" disabled class="form-control" />
                     <span asp-validation-for="Institution.Phone" class="text-danger"></span>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Institution.Email"></label>
-                </div>
-                <div class="col-8">
+                <div class="form-group col-md-6 bold-label">
+                    <span>
+                        <label asp-for="Institution.Email"></label>
+                    </span>
                     <input asp-for="Institution.Email" disabled class="form-control" />
                     <span asp-validation-for="Institution.Email" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-4">
-                    <label asp-for="Institution.Observations"></label>
-                </div>
-                <div class="col-8">
-                    <textarea asp-for="Institution.Observations" disabled class="form-control" rows="4" >
-            </textarea>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <span class="bold-label">
+                        <label asp-for="Institution.Observations"></label>
+                    </span>
+                    <textarea asp-for="Institution.Observations" disabled class="form-control" rows="4">
+                     </textarea>
                     <span asp-validation-for="Institution.Observations" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group row">
-                <div class="col-8 offset-4">
-                    <div class="row">
-                        <div class="col">
-                            <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                
+                <div class="form-group row">
+                    <div class="col-8 offset-2">
+                        <div class="row">
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">
+                                    <i class="far fa-hand-point-left"><span class="ml-1 font-menu">Regresar</span></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </div>   
