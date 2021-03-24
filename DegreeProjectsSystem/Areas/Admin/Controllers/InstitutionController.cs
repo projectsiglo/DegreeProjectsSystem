@@ -23,7 +23,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         }
         enum Action
         {
-            Create, 
+            Create,
             Update,
             None
         }
@@ -66,7 +66,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult InsertOrUpdateInstitution(InstitutionViewModel institutionViewModel)
         {
-            
+
             if (ModelState.IsValid)
             {
                 Action action = Action.None;
@@ -129,13 +129,13 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     Value = i.Id.ToString()
                 });
 
-                if (institutionViewModel.Institution.Id!=0)
+                if (institutionViewModel.Institution.Id != 0)
                 {
                     institutionViewModel.Institution = _unitWork.Institution.Get(institutionViewModel.Institution.Id);
                 }
-             }
-            return View(institutionViewModel);
+            }
 
+            return View(institutionViewModel);
         }
 
         #region API
@@ -144,6 +144,28 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         {
             var institutions = _unitWork.Institution.GetAll(includeProperties: "InstitutionType");
             return Json(new { data = institutions });
+        }
+
+        //Details Institution
+        public IActionResult DetailInstitution(int? id)
+        {
+            InstitutionViewModel institutionViewModel = new InstitutionViewModel()
+            {
+                Institution = new Institution(),
+                InstitutionTypeList = _unitWork.InstitutionType.GetAll().Select(it => new SelectListItem
+                {
+                    Text = it.Name,
+                    Value = it.Id.ToString()
+                })
+            };
+
+            institutionViewModel.Institution = _unitWork.Institution.Get(id.GetValueOrDefault());
+            if (institutionViewModel.Institution == null)
+            {
+                return NotFound();
+            }
+
+            return View(institutionViewModel);
         }
 
         //Eliminación de registro lógica

@@ -47,6 +47,9 @@ function loadDataTable() {
                                 <a onclick=Delete("/Admin/Institution/DeleteInstitution/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
+                                <a href="/Admin/Institution/DetailInstitution/${data}" class="btn btn-primary text-white" style="cursor:pointer">
+                                           <i class="fas fa-info-circle"></i>
+                                 </a>
                             </div>
                          `;
                     }
@@ -57,8 +60,11 @@ function loadDataTable() {
                                 <i class="far fa-edit"></i>
                             </a>
                             <a onclick=Delete("/Admin/Institution/DeleteInstitution/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
-                                    <i class="far fa-trash-alt"></i>
-                                </a>
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                            <a href="/Admin/Institution/DetailInstitution/${data}" class="btn btn-primary text-white" style="cursor:pointer">
+                                <i class="far fa-eye"></i>
+                                 </a>
                             </div >
                          `;
                     }
