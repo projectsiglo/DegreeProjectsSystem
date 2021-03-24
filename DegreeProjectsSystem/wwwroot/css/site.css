@@ -285,3 +285,8 @@ select:disabled {
 .bold-label {
     font-weight: bold;
 }
+
+select{
+   margin-left:4px;
+   margin-right:5px;
+}
