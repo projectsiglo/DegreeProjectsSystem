@@ -1,5 +1,6 @@
 ﻿var dataTable;
 var active;
+var isChange;
 $(document).ready(function () {
     loadDataTable();
 });
@@ -10,27 +11,48 @@ function loadDataTable() {
             "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
         },
         "ajax": {
-            "url": "/Admin/Institution/GetAllInstitutions"
+            "url": "/Admin/Solicitude/GetAllSolicitudes"
         },
         "columns": [
-            { "data": "name", "width": "15%" },
-            { "data": "institutionType.name", "width": "15%" },
-            { "data": "nit", "width": "10%" },
-            { "data": "email", "width": "15%" },
-            { "data": "phone", "width": "15%" },
+            { "data": "titleDegreeWork", "width": "25%", className: "text-justify" },
+            { "data": "actNumber", "width": "10%", className: "text-right" },
+            {
+                "data": "actDate", "width": "10%",
+                className: "text-center",
+                "render": function (data) {
+                    var d = new Date(data);
+                    return d.toLocaleString().substr(0,10);
+                 }
+            },
+            {
+                "data": "modalityChange",
+                "render": function (data) {
+                    isChange = data;
+                    if (isChange) {
+                        return `
+                                <div class="status-inactive text-center">Si</div>
+                            `;
+                    }
+                    else {
+                        return `      
+                                <div class="status-active text-center">No</div>
+                            `;
+                    }
+                }, "width": "10%"   
+            },
             {
                 "data": "active",
                 "render": function (data) {
                 active = data;
-                if (data) {
+                    if (active) {
                     return `
                                 <div class="status-active text-center">Activo</div>
-                            `
+                            `;
                 }
                 else {
                     return `      
                                 <div class="status-inactive text-center">Inactivo</div>
-                            `
+                            `;
                 }
             }, "width": "10%"
             },
@@ -40,14 +62,14 @@ function loadDataTable() {
                     if (!active) {
                         return `
                             <div class="text-center">
-                                <a href="/Admin/Institution/InsertOrUpdateInstitution/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                <a href="/Admin/Solicitude/InsertOrUpdateSolicitude/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a onclick=Delete("/Admin/Institution/DeleteInstitution/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
+                                <a onclick=Delete("/Admin/Solicitude/DeleteSolicitude/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
-                                <a href="/Admin/Institution/DetailInstitution/${data}" class="btn btn-primary text-white" style="cursor:pointer">
-                                           <i class="fas fa-info-circle"></i>
+                                <a href="/Admin/Solicitude/DetailSolicitude/${data}" class="btn btn-primary text-white" style="cursor:pointer">
+                                    <i class="fas fa-info-circle"></i>
                                  </a>
                             </div>
                          `;
@@ -55,13 +77,13 @@ function loadDataTable() {
                     else {
                         return `
                         <div class="text-center">
-                            <a href="/Admin/Institution/InsertOrUpdateInstitution/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                            <a href="/Admin/Solicitude/InsertOrUpdateSolicitude/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                 <i class="far fa-edit"></i>
                             </a>
-                            <a onclick=Delete("/Admin/Institution/DeleteInstitution/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
+                            <a onclick=Delete("/Admin/Solicitude/DeleteSolicitude/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
                                 <i class="far fa-trash-alt"></i>
                             </a>
-                            <a href="/Admin/Institution/DetailInstitution/${data}" class="btn btn-primary text-white" style="cursor:pointer">
+                            <a href="/Admin/Solicitude/DetailSolicitude/${data}" class="btn btn-primary text-white" style="cursor:pointer">
                                 <i class="far fa-eye"></i>
                                  </a>
                             </div >
@@ -75,7 +97,7 @@ function loadDataTable() {
 
 function Delete(url) {
     swal({
-        title: "Esta Seguro que quiere Eliminar la Institución?.",
+        title: "Esta Seguro que quiere Eliminar la Solicitud?.",
         text: "Este registro se puede  recuperar actualizando su estado a Activo.",
         icon: "warning",
         buttons: true,

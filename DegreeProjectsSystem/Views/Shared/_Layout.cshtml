@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - DegreeProjectsSystem</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/bootstrap-datetimepicker.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-
 </head>
 <body>
     <header>
@@ -75,6 +75,13 @@
                                         </span>
                                     </i>
                                 </a>
+                                <a class="dropdown-item" asp-area="Admin" asp-controller="Solicitude" asp-action="Index">
+                                    <i class="fas fa-graduation-cap">
+                                        <span class="p-1 font-menu">
+                                            Solicitud Trabajo Grado
+                                        </span>
+                                    </i>
+                                </a>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="EducationLevel" asp-action="Index">
                                     <i class="fas fa-graduation-cap">
                                         <span class="p-1 font-menu">
@@ -97,11 +104,11 @@
                                     </i>
                                 </a>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="InstitutionType" asp-action="Index">
-                                        <i class="fas fa-warehouse">
-                                            <span class="p-1 font-menu">
-                                                Tipo De Institución
-                                            </span>
-                                        </i>
+                                    <i class="fas fa-warehouse">
+                                        <span class="p-1 font-menu">
+                                            Tipo De Institución
+                                        </span>
+                                    </i>
                                 </a>
                                 <a class="dropdown-item" asp-area="Admin" asp-controller="Institution" asp-action="Index">
                                     <i class="fas fa-university">
@@ -180,6 +187,9 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script src="https://kit.fontawesome.com/e19c476714.js"></script>
+
+    <script src="~/js/bootstrap-datetimepicker.js"></script>
+
 
     @await Component.InvokeAsync("Notyf")
     @RenderSection("Scripts", required: false)

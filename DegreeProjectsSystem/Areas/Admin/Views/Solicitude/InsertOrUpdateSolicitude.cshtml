@@ -1,0 +1,108 @@
+﻿@model DegreeProjectsSystem.Models.Solicitude
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Crear Solicitud";
+}
+
+<form method="post">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.Id != 0)
+    {
+        // Actualizar
+        title = "Actualizar Solicitud";
+    }
+
+    <div class="col-12 border-bottom mt-5">
+        <h2 class="text-primary">@title</h2>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="TitleDegreeWork"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="TitleDegreeWork" class="form-control" placeholder="Ejemplo: Aplicación para administrar trabajos de grado" />
+                <span asp-validation-for="TitleDegreeWork" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="ActNumber"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="ActNumber" class="form-control" placeholder="Ejemplo: 3456" />
+                <span asp-validation-for="ActNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="ActDate" class="control-label"></label>    
+            </div>
+            <div class="col-8">
+                <input id="datePicker" asp-for="ActDate" type="text" class="form-control" name="ActDate" />
+                <span asp-validation-for="ActDate" class="text-danger"></span>
+            </div>  
+        </div>
+
+        <div class="form-group row">
+            <div class="checkbox">
+                <div class="col-4">
+                    <label>
+                        @Html.DisplayNameFor(model => model.ModalityChange)
+                    </label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="ModalityChange" />
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Observations"></label>
+            </div>
+            <div class="col-8">
+                <textarea asp-for="Observations" class="form-control" rows="4">
+
+                </textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Active"></label>
+            </div>
+            <div class="col-4">
+                <select asp-for="Active" class="form-control">
+                    <option value=true>Activo</option>
+                    <option value=false>Inactivo</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.Id != 0)
+                {
+                    <partial name="_ButtonsUpdateAndReturn" model="Model.Id" />
+                }
+                else
+                {
+                    <partial name="_ButtonsCreateAndReturn" />
+                }
+            </div>
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+      <script>
+        $("#datePicker").datetimepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
+     </script>   
+}

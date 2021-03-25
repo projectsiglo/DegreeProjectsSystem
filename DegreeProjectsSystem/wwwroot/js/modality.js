@@ -67,7 +67,7 @@ function Delete(url) {
 
     swal({
         title: "Esta Seguro que quiere Eliminar la Modalidad?",
-        text: "Este registro se puede  recuperar actualizando su estado a Activo",
+        text: "Este registro se puede  recuperar actualizando su estado a Activo.",
         icon: "warning",
         buttons: true,
         dangerMode: true

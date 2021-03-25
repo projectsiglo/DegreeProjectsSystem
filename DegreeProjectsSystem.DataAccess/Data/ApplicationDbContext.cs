@@ -23,6 +23,8 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         public DbSet<Career> Careers { get; set; }
         public DbSet<Modality> Modalities { get; set; }
         public DbSet<ProgramType> ProgramTypes { get; set; }
+
+        public DbSet<Solicitude> Solicitudes { get; set; }
         public DbSet<Submodality> Submodalities { get; set; }
         public DbSet<TeachingFunction> TeachingFunctions { get; set; }
         public DbSet<TypePerson> TypePeople { get; set; }

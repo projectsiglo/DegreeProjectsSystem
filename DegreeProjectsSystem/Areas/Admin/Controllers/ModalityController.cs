@@ -84,11 +84,11 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     _unitWork.Save();
                     if (action == Action.Create)
                     {
-                        _notyfService.Success("Tipo de modalidad creada correctamente.");
+                        _notyfService.Success("Modalidad creada correctamente.");
                     }
                     if (action == Action.Update)
                     {
-                        _notyfService.Success("Tipo de modalidad actualizada correctamente.");
+                        _notyfService.Success("Modalidad actualizada correctamente.");
                     }
 
                     return RedirectToAction(nameof(Index));
@@ -160,7 +160,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             _unitWork.Modality.Update(modalityDb);
             _unitWork.Save();
 
-            return Json(new { succes = true, message = "Modalidad borrada exitosamente" });
+            return Json(new { succes = true, message = "Modalidad borrada exitosamente." });
         }
 
         #endregion
