@@ -14,95 +14,92 @@
         title = "Actualizar Solicitud";
     }
 
+
+<div class="container-fluid">
     <div class="col-12 border-bottom mt-5">
         <h2 class="text-primary">@title</h2>
     </div>
-    <div class="col-8 pt-4">
-        <div class="form-group row">
-            <div class="col-4">
+
+    <div class="form-row ml-0 mt-3">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="TitleDegreeWork"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="TitleDegreeWork" class="form-control" placeholder="Ejemplo: Aplicación para administrar trabajos de grado" />
-                <span asp-validation-for="TitleDegreeWork" class="text-danger"></span>
-            </div>
+            </span>
+            <textarea asp-for="TitleDegreeWork" class="form-control" rows="4" placeholder="Ejemplo: Aplicación para administrar trabajos de grado.">
+            </textarea>
+            <span asp-validation-for="TitleDegreeWork" class="text-danger"></span>
         </div>
-        <div class="form-group row">
-            <div class="col-4">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="ActNumber"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="ActNumber" class="form-control" placeholder="Ejemplo: 3456" />
-                <span asp-validation-for="ActNumber" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-4">
-                <label asp-for="ActDate" class="control-label"></label>    
-            </div>
-            <div class="col-8">
-                <input id="datePicker" asp-for="ActDate" type="text" class="form-control" name="ActDate" />
-                <span asp-validation-for="ActDate" class="text-danger"></span>
-            </div>  
-        </div>
-
-        <div class="form-group row">
-            <div class="checkbox">
-                <div class="col-4">
-                    <label>
-                        @Html.DisplayNameFor(model => model.ModalityChange)
-                    </label>
-                </div>
-                <div class="col-8">
-                    <input asp-for="ModalityChange" />
-
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-4">
-                <label asp-for="Observations"></label>
-            </div>
-            <div class="col-8">
-                <textarea asp-for="Observations" class="form-control" rows="4">
-
-                </textarea>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-4">
-                <label asp-for="Active"></label>
-            </div>
-            <div class="col-4">
-                <select asp-for="Active" class="form-control">
-                    <option value=true>Activo</option>
-                    <option value=false>Inactivo</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-8 offset-4">
-                @if (Model.Id != 0)
-                {
-                    <partial name="_ButtonsUpdateAndReturn" model="Model.Id" />
-                }
-                else
-                {
-                    <partial name="_ButtonsCreateAndReturn" />
-                }
-            </div>
+            </span>
+            <input asp-for="ActNumber" class="form-control" placeholder="Ejemplo: 3456" />
+            <span asp-validation-for="ActNumber" class="text-danger"></span>
         </div>
     </div>
 
+    <div class="form-row ml-0">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
+                <label asp-for="ActDate" class="control-label"></label>
+            </span>
+            <input id="datePicker" asp-for="ActDate" type="text" class="form-control" name="ActDate" />
+            <span asp-validation-for="ActDate" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="checkbox">
+                <span class="bold-label">
+                    <label asp-for="ModalityChange" class="control-label"></label>
+                </span>
+                <span class="align-content-center">
+                    <br />
+                    <input asp-for="ModalityChange" />
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="form-row ml-0">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
+                <label asp-for="Observations"></label>
+            </span>
+            <textarea asp-for="Observations" class="form-control" rows="4">
+             </textarea>
+            <span asp-validation-for="Observations" class="text-danger"></span>
+        </div>
+        <div class="form-group col-md-6">
+            <span class="bold-label">
+                <label asp-for="Active"></label>
+            </span>
+            <select asp-for="Active" class="form-control">
+                <option value=true>Activo</option>
+                <option value=false>Inactivo</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row ml-2">
+        <div class="col-8 offset-2">
+            @if (Model.Id != 0)
+            {
+                <partial name="_ButtonsUpdateAndReturn" model="Model.Id" />
+            }
+            else
+            {
+                <partial name="_ButtonsCreateAndReturn" />
+            }
+        </div>
+    </div>
+</div>
+        
 </form>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-      <script>
+    <script>
         $("#datePicker").datetimepicker({
             format: 'dd/mm/yyyy',
             autoclose: true
         });
-     </script>   
+    </script>
 }

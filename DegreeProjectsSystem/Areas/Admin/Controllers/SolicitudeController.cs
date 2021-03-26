@@ -122,6 +122,22 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return View(solicitude);
         }
 
+        //Details Solicitude
+        public IActionResult DetailSolicitude(int? id)
+        {
+            Solicitude solicitude = new Solicitude();
+                
+            solicitude = _unitWork.Solicitude.Get(id.GetValueOrDefault());
+
+            if (solicitude == null)
+            {
+                return NotFound();
+            }
+
+            return View(solicitude);
+        }
+
+
         //Eliminación de registro lógica
         [HttpPost]
         public IActionResult DeleteSolicitude(int id)

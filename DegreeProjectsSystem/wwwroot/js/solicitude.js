@@ -69,7 +69,7 @@ function loadDataTable() {
                                     <i class="far fa-trash-alt"></i>
                                 </a>
                                 <a href="/Admin/Solicitude/DetailSolicitude/${data}" class="btn btn-primary text-white" style="cursor:pointer">
-                                    <i class="fas fa-info-circle"></i>
+                                    <i class="far fa-eye"></i>
                                  </a>
                             </div>
                          `;
