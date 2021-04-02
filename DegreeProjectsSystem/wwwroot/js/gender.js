@@ -1,5 +1,6 @@
 ﻿var dataTable;
 var active;
+
 $(document).ready(function () {
     loadDataTable();
 });
@@ -10,61 +11,51 @@ function loadDataTable() {
             "url": "//cdn.datatables.net/plug-ins/1.10.24/i18n/Spanish.json"
         },
         "ajax": {
-            "url": "/Admin/Institution/GetAllInstitutions"
+            "url": "/Admin/Gender/GetAllGenders"
         },
         "columns": [
-            { "data": "name", "width": "15%" },
-            { "data": "institutionType.name", "width": "15%" },
-            { "data": "nit", "width": "10%" },
-            { "data": "email", "width": "15%" },
-            { "data": "phone", "width": "15%" },
+            { "data": "name", "width": "40%" },
             {
                 "data": "active",
                 "render": function (data) {
-                active = data;
-                if (data) {
-                    return `
-                                <div class="status-active text-center">Activo</div>
-                            `
-                }
-                else {
-                    return `      
-                                <div class="status-inactive text-center">Inactivo</div>
-                            `
-                }
-            }, "width": "10%"
+                    active = data;
+                    if (data) {
+                        return `
+                                  <div class="status-active text-center">Activo</div>
+                               `
+                    }
+                    else {
+                        return `      
+                                  <div class="status-inactive text-center">Inactivo</div>
+                               `
+                    }
+                }, "width": "10%"
             },
             {
                 "data": "id",
                 "render": function (data) {
                     if (!active) {
                         return `
-                            <div class="text-center col>
-                                <a href="/Admin/Institution/InsertOrUpdateInstitution/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                            <div class="text-center">
+                                <a href="/Admin/Gender/InsertOrUpdateGender/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit"></i>
                                 </a>
-                                <a onclick=Delete("/Admin/Institution/DeleteInstitution/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
+                                <a onclick=Delete("/Admin/Gender/DeleteGender/${data}") class="btn btn-danger disabled text-white" disabled style="cursor:pointer;">
                                     <i class="far fa-trash-alt"></i>
                                 </a>
-                                <a href="/Admin/Institution/DetailInstitution/${data}" class="btn btn-primary text-white" style="cursor:pointer">
-                                     <i class="far fa-eye"></i>
-                                 </a>
                             </div>
                          `;
                     }
                     else {
                         return `
-                        <div class="text-center">
-                            <a href="/Admin/Institution/InsertOrUpdateInstitution/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
-                                <i class="far fa-edit"></i>
-                            </a>
-                            <a onclick=Delete("/Admin/Institution/DeleteInstitution/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
-                                <i class="far fa-trash-alt"></i>
-                            </a>
-                            <a href="/Admin/Institution/DetailInstitution/${data}" class="btn btn-primary text-white" style="cursor:pointer">
-                                <i class="far fa-eye"></i>
-                                 </a>
-                            </div >
+                            <div class="text-center">
+                                <a href="/Admin/Gender/InsertOrUpdateGender/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
+                                    <i class="far fa-edit"></i>
+                                </a>
+                                <a onclick=Delete("/Admin/Gender/DeleteGender/${data}") class="btn btn-danger text-white" style="cursor:pointer;">
+                                    <i class="far fa-trash-alt"></i>
+                                </a>
+                            </div>
                          `;
                     }
                 }, "width": "20%"
@@ -75,7 +66,7 @@ function loadDataTable() {
 
 function Delete(url) {
     swal({
-        title: "Esta Seguro que quiere Eliminar la Institución?.",
+        title: "Esta Seguro que quiere Eliminar el Género?.",
         text: "Este registro se puede  recuperar actualizando su estado a Activo.",
         icon: "warning",
         buttons: true,

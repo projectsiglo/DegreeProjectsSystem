@@ -16,6 +16,7 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         public DbSet<DepartmentFaculty> DepartmentFaculties { get; set; }
         public DbSet<EducationLevel> EducationLevels { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Gender> Genders { get; set; }
         public DbSet<Institution> Institutions { get; set; }
         public DbSet<InstitutionContactCharge> InstitutionContactCharges { get; set; }
         public DbSet<IdentityDocumentType> IdentityDocumentTypes { get; set; }
@@ -57,6 +58,10 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
                .HasIndex(f => f.Name)
                .IsUnique();
 
+            modelBuilder.Entity<Gender>()
+               .HasIndex(g => g.Name)
+               .IsUnique();
+
             modelBuilder.Entity<Institution>()
                 .HasIndex(i => i.Name)
                 .IsUnique();
@@ -79,6 +84,10 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
 
             modelBuilder.Entity<ProgramType>()
                .HasIndex(pt => new { pt.Name })
+               .IsUnique();
+
+            modelBuilder.Entity<Solicitude>()
+               .HasIndex(s => new { s.ActNumber })
                .IsUnique();
 
             modelBuilder.Entity<Submodality>()

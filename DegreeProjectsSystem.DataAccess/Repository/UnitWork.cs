@@ -14,6 +14,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public IIdentityDocumentTypeRepository IdentityDocumentType { get; private set; }
         public IEducationLevelRepository EducationLevel { get; private set; }
         public IFacultyRepository Faculty { get; private set; }
+        public IGenderRepository Gender { get; private set; }
         public IInstitutionContactChargeRepository InstitutionContactCharge { get; private set; }
         public IInstitutionTypeRepository InstitutionType { get; private set; }
         public IModalityRepository Modality { get; private set; }
@@ -32,6 +33,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             DepartmentFaculty = new DepartmentFacultyRepository(_db);
             EducationLevel = new EducationLevelRepository(_db);
             Faculty = new FacultyRepository(_db);
+            Gender = new GenderRepository(_db);
             Institution = new InstitutionRepository(_db);
             IdentityDocumentType = new IdentityDocumentTypeRepository(_db);
             InstitutionContactCharge = new InstitutionContactChargeRepository(_db);
