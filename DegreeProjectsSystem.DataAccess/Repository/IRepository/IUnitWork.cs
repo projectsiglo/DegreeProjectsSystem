@@ -10,13 +10,13 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
         IDepartmentFacultyRepository DepartmentFaculty { get; }
         IEducationLevelRepository EducationLevel { get; }
         IFacultyRepository Faculty { get; }
-
         IGenderRepository Gender { get;  }
         IIdentityDocumentTypeRepository IdentityDocumentType { get; }
         IInstitutionRepository Institution { get; }
         IInstitutionContactChargeRepository InstitutionContactCharge { get; }
         IInstitutionTypeRepository InstitutionType { get; }
         IModalityRepository Modality { get; }
+        IPersonRepository Person { get; }
         IProgramTypeRepository ProgramType { get; }
         ISolicitudeRepository Solicitude { get;  }
         ISubmodalityRepository Submodality { get; }

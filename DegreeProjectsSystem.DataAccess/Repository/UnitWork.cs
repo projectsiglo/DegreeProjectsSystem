@@ -18,6 +18,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public IInstitutionContactChargeRepository InstitutionContactCharge { get; private set; }
         public IInstitutionTypeRepository InstitutionType { get; private set; }
         public IModalityRepository Modality { get; private set; }
+        public IPersonRepository Person { get; private set; }
         public IProgramTypeRepository ProgramType { get; private set; }
         public ISolicitudeRepository Solicitude { get; private set; }
         public ISubmodalityRepository Submodality { get; private set; }
@@ -39,6 +40,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             InstitutionContactCharge = new InstitutionContactChargeRepository(_db);
             InstitutionType = new InstitutionTypeRepository(_db);
             Modality = new ModalityRepository(_db);
+            Person = new PersonRepository(_db);
             ProgramType = new ProgramTypeRepository(_db);
             Solicitude = new SolicitudeRepository(_db);
             Submodality = new SubmodalityRepository(_db);
