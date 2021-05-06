@@ -1,0 +1,207 @@
+﻿@model DegreeProjectsSystem.Models.ViewModels.PersonViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Crear Persona";
+}
+
+<form method="post">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.Person.Id != 0)
+    {
+        // Actualizar
+        title = "Actualizar Persona";
+        <input type="hidden" asp-for="Person.Id" />
+    }
+
+    <div class="col-12 border-bottom mt-5">
+        <h2 class="text-primary">@title</h2>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Person.IdentificationNumber"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Person.IdentificationNumber" class="form-control" placeholder="Ejemplo: 10001234567" />
+                <span asp-validation-for="Person.IdentificationNumber" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                Tipo Documento:
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(idt => idt.Person.IdentityDocumentTypeId, Model.IdentityDocumentTypeList,
+                "Seleccione un Tipo de Documento....",
+                new { @class = "form-control" })
+                <span asp-validation-for="Person.IdentityDocumentTypeId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Person.Names"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Person.Names" class="form-control" placeholder="Ejemplo: Henry" />
+                <span asp-validation-for="Person.Names" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Person.Surnames"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Person.Surnames" class="form-control" placeholder="Ejemplo: García Ospina" />
+                <span asp-validation-for="Person.Surnames" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-4">
+                Género:
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(ge => ge.Person.GenderId, Model.GenderList,
+                "Seleccione un Género....",
+                new { @class = "form-control" })
+                <span asp-validation-for="Person.GenderId" class="text-danger"></span>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-4">
+                Departamento:
+            </div>
+            <div class="col-8">
+                <select onchange="getCity()" name="DepartmentId" asp-for="Person.DepartmentId"
+                        asp-items="Model.DepartmentList" id="DepartmentId" class="form-control">
+                </select>
+                <span asp-validation-for="Person.DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                Ciudad:
+            </div>
+            <div class="col-8">
+                <select asp-for="@Model.Person.CityId" name="CityId" id="CityId"
+                        asp-items="@(new SelectList(string.Empty,"Id","Name"))" class="form-control">
+                    <option value="" selected="">Seleccionar una Ciudad....</option>
+                </select>
+            </div>
+        </div>
+
+        @*<div class="form-group row">
+            <div class="col-4">
+                Departamento:
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(dp => dp.Person.DepartmentId, Model.DepartmentList,
+                "Seleccione un Departamento....",
+                new { @class = "form-control" })
+                <span asp-validation-for="Person.DepartmentId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                Ciudad:
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(ci => ci.Person.CityId, Model.CityList,
+                "Seleccione una Ciudad....",
+                new { @class = "form-control" })
+                <span asp-validation-for="Person.CityId" class="text-danger"></span>
+            </div>
+        </div>*@
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Person.Address"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Person.Address" class="form-control" placeholder="Ejemplo: Avenida La Playa No.34-56" />
+                <span asp-validation-for="Person.Address" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Person.Phone"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Person.Phone" class="form-control" placeholder="Ejemplo: 3487980" />
+                <span asp-validation-for="Person.Phone" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Person.Mobile"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Person.Mobile" class="form-control" placeholder="Ejemplo: 3053608752" />
+                <span asp-validation-for="Person.Mobile" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Person.Active"></label>
+            </div>
+            <div class="col-4">
+                <select asp-for="Person.Active" class="form-control">
+                    <option value=true>Activo</option>
+                    <option value=false>Inactivo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.Person.Id != 0)
+                {
+                    <partial name="_ButtonsUpdateAndReturn" model="Model.Person.Id" />
+                }
+                else
+                {
+                    <partial name="_ButtonsCreateAndReturn" />
+                }
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+      getCity();
+        $('#DeparmentId').change(function () {
+            getCity();
+      });
+    });
+  function getCity () {
+      var url = '@Url.Content("~/")' + "Admin/Person/GetCity";
+      var ddlsource = document.getElementById('DepartmentId').value;
+      $.getJSON(url, { id: ddlsource }, function (data)  {
+      var items = '';
+      $('#CityId').empty();
+      $.each(data, function (i, city) {
+      items += "<option value='" + city.value + "'>" + city.text + "</option>";
+      });
+        $('#CityId').html(items);
+      })
+   }
+    </script>}

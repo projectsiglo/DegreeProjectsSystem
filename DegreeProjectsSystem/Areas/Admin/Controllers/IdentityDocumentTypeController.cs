@@ -16,7 +16,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         public IdentityDocumentTypeController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
-            _notyfService = _notyfService;
+            _notyfService = notyfService;
         }
         enum Action
         {

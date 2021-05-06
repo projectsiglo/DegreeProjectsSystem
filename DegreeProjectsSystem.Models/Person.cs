@@ -9,6 +9,8 @@ namespace DegreeProjectsSystem.Models
         public int Id { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar un Número de Documento de Identificación")]
+        [MaxLength(20, ErrorMessage = "El campo {0} debe tener menos de {1} caracteres")]
+        [Display(Name = "Número de Identificación")]
         public string IdentificationNumber { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar un Tipo de Documento de Identidad")]

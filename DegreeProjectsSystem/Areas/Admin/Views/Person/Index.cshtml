@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -7,10 +6,10 @@
 
 <div class="row">
     <div class="col-6">
-        <h2 class="text-primary mt-5"> Lista De Tipos De Instituciones </h2>
+        <h2 class="text-primary mt-5"> Lista De Personas </h2>
     </div>
     <div class="col-6 text-right">
-        <a class="btn btn-primary mt-5" asp-action="InsertOrUpdateInstitutionType"> <i class="fas fa-plus"></i> Crear Tipo De Institución</a>
+        <a class="btn btn-primary mt-5" asp-action="InsertOrUpdatePerson"> <i class="fas fa-plus"></i> Crear Persona</a>
     </div>
 </div>
 
@@ -20,7 +19,13 @@
     <table id="tblData" class="table table-striped table-bordered" style="width:100%;">
         <thead class="">
             <tr class="table-info text-center">
-                <th>Tipo De Institución</th>
+                <th>Identificación</th>
+                <th>Tipo Documento</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Departamento</th>
+                <th>Ciudad</th>
+                <th>Dirección</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>
@@ -28,5 +33,5 @@
     </table>
 </div>
 @section Scripts{
-    <script src="~/js/institution_type.js"></script>
+    <script src="~/js/person.js"></script>
 }
