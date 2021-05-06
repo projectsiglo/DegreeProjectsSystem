@@ -38,19 +38,6 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return View();
         }
 
-
-        [ActionName("GetCity")]
-        public async Task<IActionResult> GetCity(int id)
-        {
-            List<City> cities = new List<City>();
-            cities = await (from city in _db.Cities
-                            where city.DepartmentId == id
-                            orderby city.Name
-                            select city).ToListAsync();
-            return Json(new SelectList(cities, "Id", "Name"));
-        }
-
-
         public IActionResult InsertOrUpdatePerson(int? id)
         {
             PersonViewModel personViewModel = new PersonViewModel()

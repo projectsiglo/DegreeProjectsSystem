@@ -61,7 +61,6 @@
             </div>
         </div>
 
-
         <div class="form-group row">
             <div class="col-4">
                 Género:
@@ -74,37 +73,12 @@
             </div>
         </div>
 
-
         <div class="form-group row">
             <div class="col-4">
                 Departamento:
             </div>
             <div class="col-8">
-                <select onchange="getCity()" name="DepartmentId" asp-for="Person.DepartmentId"
-                        asp-items="Model.DepartmentList" id="DepartmentId" class="form-control">
-                </select>
-                <span asp-validation-for="Person.DepartmentId" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-4">
-                Ciudad:
-            </div>
-            <div class="col-8">
-                <select asp-for="@Model.Person.CityId" name="CityId" id="CityId"
-                        asp-items="@(new SelectList(string.Empty,"Id","Name"))" class="form-control">
-                    <option value="" selected="">Seleccionar una Ciudad....</option>
-                </select>
-            </div>
-        </div>
-
-        @*<div class="form-group row">
-            <div class="col-4">
-                Departamento:
-            </div>
-            <div class="col-8">
-                @Html.DropDownListFor(dp => dp.Person.DepartmentId, Model.DepartmentList,
+                @Html.DropDownListFor(de => de.Person.DepartmentId, Model.DepartmentList,
                 "Seleccione un Departamento....",
                 new { @class = "form-control" })
                 <span asp-validation-for="Person.DepartmentId" class="text-danger"></span>
@@ -121,7 +95,7 @@
                 new { @class = "form-control" })
                 <span asp-validation-for="Person.CityId" class="text-danger"></span>
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group row">
             <div class="col-4">
@@ -185,23 +159,4 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
-    <script type="text/javascript">
-    $(document).ready(function () {
-      getCity();
-        $('#DeparmentId').change(function () {
-            getCity();
-      });
-    });
-  function getCity () {
-      var url = '@Url.Content("~/")' + "Admin/Person/GetCity";
-      var ddlsource = document.getElementById('DepartmentId').value;
-      $.getJSON(url, { id: ddlsource }, function (data)  {
-      var items = '';
-      $('#CityId').empty();
-      $.each(data, function (i, city) {
-      items += "<option value='" + city.value + "'>" + city.text + "</option>";
-      });
-        $('#CityId').html(items);
-      })
-   }
     </script>}
