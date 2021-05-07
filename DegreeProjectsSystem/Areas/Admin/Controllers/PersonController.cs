@@ -92,7 +92,9 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult InsertOrUpdatePerson(PersonViewModel personViewModel)
         {
-            
+            personViewModel.Person.DepartmentId = Convert.ToInt32(Request.Form["DepartmentId"]);
+            personViewModel.Person.CityId = Convert.ToInt32(Request.Form["CityId"]);
+
             if (ModelState.IsValid)
             {
                 Action action = Action.None;
@@ -201,6 +203,19 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         }
 
         #region API
+
+        [ActionName("GetCity")]
+        public async Task<IActionResult> GetCity(int id)
+        {
+            List<City> cities = new List<City>();
+            cities = await (from city in _db.Cities
+                            where city.DepartmentId == id
+                            orderby city.Name
+                            select city).ToListAsync();
+            return Json(new SelectList(cities, "Id", "Name"));
+        }
+
+
         [HttpGet]
         public IActionResult GetAllPeople()
         {
@@ -229,7 +244,6 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return Json(new { succes = true, message = "Persona borrada exitosamente." });
 
         }
-
 
         #endregion
     }

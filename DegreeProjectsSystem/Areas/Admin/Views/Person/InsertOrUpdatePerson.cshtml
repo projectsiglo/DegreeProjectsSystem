@@ -78,9 +78,10 @@
                 Departamento:
             </div>
             <div class="col-8">
-                @Html.DropDownListFor(de => de.Person.DepartmentId, Model.DepartmentList,
-                "Seleccione un Departamento....",
-                new { @class = "form-control" })
+                <select asp-for="Person.DepartmentId" onchange="getCity()" name="DepartmentId" id="DepartmentId" 
+                   asp-items="Model.DepartmentList" class="form-control">
+                    <option value="" disabled="" selected="">Seleccione un Departamento....</option>
+                </select>
                 <span asp-validation-for="Person.DepartmentId" class="text-danger"></span>
             </div>
         </div>
@@ -90,9 +91,10 @@
                 Ciudad:
             </div>
             <div class="col-8">
-                @Html.DropDownListFor(ci => ci.Person.CityId, Model.CityList,
-                "Seleccione una Ciudad....",
-                new { @class = "form-control" })
+                <select asp-for="Person.CityId" name="CityId" id="CityId"
+                     asp-items="Model.CityList" class="form-control">
+                      <option value="" disabled="" selected="">Seleccione una Ciudad....</option>
+                </select>
                 <span asp-validation-for="Person.CityId" class="text-danger"></span>
             </div>
         </div>
@@ -159,4 +161,24 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
-    </script>}
+    <script type="text/javascript">
+        $(document).ready(function () {
+          getCity();
+            $('#DepartmentId').change(function () {
+                getCity();
+          });
+        });
+      function getCity () {
+          var url = '@Url.Content("~/")' + "Admin/Person/GetCity";
+          var ddlsource = document.getElementById('DepartmentId').value;
+          $.getJSON(url, { id: ddlsource }, function (data)  {
+          var items = '';
+          $('#CityId').empty();
+          $.each(data, function (i, city) {
+          items += "<option value='" + city.value + "'>" + city.text + "</option>";
+          });
+            $('#CityId').html(items);
+          })
+       }
+    </script>
+}
