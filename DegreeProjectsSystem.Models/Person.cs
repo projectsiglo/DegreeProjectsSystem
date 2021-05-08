@@ -16,6 +16,7 @@ namespace DegreeProjectsSystem.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar un Tipo de Documento de Identidad")]
         public int IdentityDocumentTypeId { get; set; }
 
+        [Display(Name = "Tipo de Documento")]
         //Foreign key
         [ForeignKey("IdentityDocumentTypeId")]
         public IdentityDocumentType IdentityDocumentType { get; set; }
@@ -33,6 +34,7 @@ namespace DegreeProjectsSystem.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar el Género")]
         public int GenderId { get; set; }
 
+        [Display(Name = "Género")]
         //Foreign key
         [ForeignKey("GenderId")]
         public Gender Gender { get; set; }
@@ -40,6 +42,7 @@ namespace DegreeProjectsSystem.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar El Departamento de Residencia")]
         public int DepartmentId { get; set; }
 
+        [Display(Name = "Departamento")]
         //Foreign key
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
@@ -47,6 +50,7 @@ namespace DegreeProjectsSystem.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar La Ciudad de Residencia")]
         public int CityId { get; set; }
 
+        [Display(Name = "Ciudad")]
         //Foreign key
         [ForeignKey("CityId")]
         public City City { get; set; }

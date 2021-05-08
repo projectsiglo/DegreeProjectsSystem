@@ -4,7 +4,7 @@
     var title = "Crear Persona";
 }
 
-<form method="post">
+<form class="form-horizontal" role="form" method="post">
     <div class="row p-3 border-0">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     </div>
@@ -15,147 +15,129 @@
         <input type="hidden" asp-for="Person.Id" />
     }
 
+
+<div class="container-fluid">
     <div class="col-12 border-bottom mt-5">
         <h2 class="text-primary">@title</h2>
     </div>
-    <div class="col-8 pt-4">
-        <div class="form-group row">
-            <div class="col-4">
+
+    <div class="form-row mt-3">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="Person.IdentificationNumber"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="Person.IdentificationNumber" class="form-control" placeholder="Ejemplo: 10001234567" />
-                <span asp-validation-for="Person.IdentificationNumber" class="text-danger"></span>
-            </div>
+            </span>
+            <input asp-for="Person.IdentificationNumber" class="form-control" placeholder="Ejemplo: 3456" />
+            <span asp-validation-for="Person.IdentificationNumber" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
-                Tipo Documento:
-            </div>
-            <div class="col-8">
-                @Html.DropDownListFor(idt => idt.Person.IdentityDocumentTypeId, Model.IdentityDocumentTypeList,
-                "Seleccione un Tipo de Documento....",
-                new { @class = "form-control" })
-                <span asp-validation-for="Person.IdentityDocumentTypeId" class="text-danger"></span>
-            </div>
+        <div class="form-group col-md-6">
+            <span class="bold-label">
+                <label asp-for="Person.IdentityDocumentType"></label>
+            </span>
+            @Html.DropDownListFor(idt => idt.Person.IdentityDocumentTypeId, Model.IdentityDocumentTypeList,
+            "Seleccione un Tipo de Documento....",
+            new { @class = "form-control" })
+            <span asp-validation-for="Person.IdentityDocumentTypeId" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="Person.Names"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="Person.Names" class="form-control" placeholder="Ejemplo: Henry" />
-                <span asp-validation-for="Person.Names" class="text-danger"></span>
-            </div>
+            </span>
+            <input asp-for="Person.Names" class="form-control" placeholder="Ejemplo: Henry" />
+            <span asp-validation-for="Person.Names" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="Person.Surnames"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="Person.Surnames" class="form-control" placeholder="Ejemplo: García Ospina" />
-                <span asp-validation-for="Person.Surnames" class="text-danger"></span>
-            </div>
+            </span>
+            <input asp-for="Person.Surnames" class="form-control" placeholder="Ejemplo: García Ospina" />
+            <span asp-validation-for="Person.Surnames" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
-                Género:
-            </div>
-            <div class="col-8">
-                @Html.DropDownListFor(ge => ge.Person.GenderId, Model.GenderList,
-                "Seleccione un Género....",
-                new { @class = "form-control" })
-                <span asp-validation-for="Person.GenderId" class="text-danger"></span>
-            </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-8 offset-2">
+            <span class="bold-label">
+                <label asp-for="Person.Gender"></label>
+            </span>
+            @Html.DropDownListFor(ge => ge.Person.GenderId, Model.GenderList,
+            "Seleccione un Género....",
+            new { @class = "form-control" })
+            <span asp-validation-for="Person.GenderId" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
-                Departamento:
-            </div>
-            <div class="col-8">
-                <select asp-for="Person.DepartmentId" onchange="getCity()" name="DepartmentId" id="DepartmentId" 
-                   asp-items="Model.DepartmentList" class="form-control">
-                    <option value="" disabled="" selected="">Seleccione un Departamento....</option>
-                </select>
-                <span asp-validation-for="Person.DepartmentId" class="text-danger"></span>
-            </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
+                <label asp-for="Person.Department"></label>
+            </span>
+            <select asp-for="Person.DepartmentId" onchange="getCity()" name="DepartmentId" id="DepartmentId"
+                    asp-items="Model.DepartmentList" class="form-control">
+                <option value="" disabled="" selected="">Seleccione un Departamento....</option>
+            </select>
+            <span asp-validation-for="Person.DepartmentId" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
-                Ciudad:
-            </div>
-            <div class="col-8">
-                <select asp-for="Person.CityId" name="CityId" id="CityId"
-                     asp-items="Model.CityList" class="form-control">
-                      <option value="" disabled="" selected="">Seleccione una Ciudad....</option>
-                </select>
-                <span asp-validation-for="Person.CityId" class="text-danger"></span>
-            </div>
+        <div class="form-group col-md-6">
+            <span class="bold-label">
+                <label asp-for="Person.City"></label>
+            </span>
+            <select asp-for="Person.CityId" onchange="getCity()" name="CityId" id="CityId"
+                    data-val="true" data-val-required="The EnumCountry field is required."
+                    asp-items="Model.CityList" class="form-control">
+                <option value="0" disabled="" selected="">Seleccione una Ciudad....</option>
+            </select>
+            <span asp-validation-for="Person.CityId" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="Person.Address"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="Person.Address" class="form-control" placeholder="Ejemplo: Avenida La Playa No.34-56" />
-                <span asp-validation-for="Person.Address" class="text-danger"></span>
-            </div>
+            </span>
+            <textarea asp-for="Person.Address" class="form-control" rows="4" placeholder="Ejemplo: Ejemplo: Avenida La Playa No.34-56.">
+            </textarea>
+            <span asp-validation-for="Person.Address" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="Person.Phone"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="Person.Phone" class="form-control" placeholder="Ejemplo: 3487980" />
-                <span asp-validation-for="Person.Phone" class="text-danger"></span>
-            </div>
+            </span>
+            <input asp-for="Person.Phone" class="form-control" placeholder="Ejemplo: 3487980" />
+            <span asp-validation-for="Person.Phone" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="Person.Mobile"></label>
-            </div>
-            <div class="col-8">
-                <input asp-for="Person.Mobile" class="form-control" placeholder="Ejemplo: 3053608752" />
-                <span asp-validation-for="Person.Mobile" class="text-danger"></span>
-            </div>
+            </span>
+            <input asp-for="Person.Mobile" class="form-control" placeholder="Ejemplo: 3053608752" />
+            <span asp-validation-for="Person.Mobile" class="text-danger"></span>
         </div>
-
-        <div class="form-group row">
-            <div class="col-4">
+        <div class="form-group col-md-6">
+            <span class="bold-label">
                 <label asp-for="Person.Active"></label>
-            </div>
-            <div class="col-4">
-                <select asp-for="Person.Active" class="form-control">
-                    <option value=true>Activo</option>
-                    <option value=false>Inactivo</option>
-                </select>
-            </div>
+            </span>
+            <select asp-for="Person.Active" class="form-control">
+                <option value=true>Activo</option>
+                <option value=false>Inactivo</option>
+            </select>
         </div>
-
-        <div class="form-group row">
-            <div class="col-8 offset-4">
-                @if (Model.Person.Id != 0)
-                {
-                    <partial name="_ButtonsUpdateAndReturn" model="Model.Person.Id" />
-                }
-                else
-                {
-                    <partial name="_ButtonsCreateAndReturn" />
-                }
-            </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-8 offset-2">
+            @if (Model.Person.Id != 0)
+            {
+                <partial name="_ButtonsUpdateAndReturn" model="Model.Person.Id" />
+            }
+            else
+            {
+                <partial name="_ButtonsCreateAndReturn" />
+            }
         </div>
-
     </div>
 
+</div>
 </form>
 
 @section Scripts {
@@ -174,8 +156,8 @@
           $.getJSON(url, { id: ddlsource }, function (data)  {
           var items = '';
           $('#CityId').empty();
-          $.each(data, function (i, city) {
-          items += "<option value='" + city.value + "'>" + city.text + "</option>";
+              $.each(data, function (i, city) {
+                items += "<option value='" + city.value + "'>" + city.text + "</option>";
           });
             $('#CityId').html(items);
           })

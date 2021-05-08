@@ -17,7 +17,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class PersonController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
         private readonly ApplicationDbContext _db;
 
         public PersonController(IUnitWork unitWork, INotyfService notyfService, ApplicationDbContext db)
@@ -28,7 +28,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         }
         enum Action
         {
-            Create, 
+            Create,
             Update,
             None
         }
@@ -70,10 +70,10 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                 })
             };
 
+            // Crea un nuevo registro
             if (id == null)
             {
                 personViewModel.Person.Active = true;
-                // Crea un nuevo registro
                 return View(personViewModel);
             }
 
@@ -200,6 +200,47 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
              }
             return View(personViewModel);
 
+        }
+
+        //Details Person
+        public IActionResult DetailPerson(int? id)
+        {
+            PersonViewModel personViewModel = new PersonViewModel()
+            {
+                IdentityDocumentTypeList = _unitWork.IdentityDocumentType.GetAll(orderBy: idt => idt.OrderBy(idt => idt.Name)).Select(idt => new SelectListItem
+                {
+                    Text = idt.Name,
+                    Value = idt.Id.ToString()
+                }),
+
+                GenderList = _unitWork.Gender.GetAll(orderBy: ge => ge.OrderBy(ge => ge.Name)).Select(ge => new SelectListItem
+                {
+                    Text = ge.Name,
+                    Value = ge.Id.ToString()
+                }),
+
+
+                DepartmentList = _unitWork.Department.GetAll(orderBy: de => de.OrderBy(de => de.Name)).Select(d => new SelectListItem
+                {
+                    Text = d.Name,
+                    Value = d.Id.ToString()
+                }),
+
+                CityList = _unitWork.City.GetAll(orderBy: ci => ci.OrderBy(ci => ci.Name)).Select(ci => new SelectListItem
+                {
+                    Text = ci.Name,
+                    Value = ci.Id.ToString()
+                })
+            
+        };
+
+            personViewModel.Person = _unitWork.Person.Get(id.GetValueOrDefault());
+            if (personViewModel.Person == null)
+            {
+                return NotFound();
+            }
+
+            return View(personViewModel);
         }
 
         #region API

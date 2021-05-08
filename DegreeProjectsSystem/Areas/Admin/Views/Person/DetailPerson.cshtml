@@ -1,0 +1,122 @@
+﻿@model DegreeProjectsSystem.Models.ViewModels.PersonViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Detalle Persona";
+}
+
+<div class="container-fluid">
+    <div class="container-detail mt-3">
+        <div class="card-detail ml-1">
+            <div class="col-12 border-bottom mt-5">
+                <h2 class="text-primary">@title</h2>
+            </div>
+
+            <div class="col-12 pt-3 ml-md-auto">
+                <div class="form-row ml-0">
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.IdentificationNumber"></label>
+                        </span>
+                        <input asp-for="Person.IdentificationNumber" disabled class="form-control" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.IdentityDocumentType"></label>
+                        </span>
+                        @Html.DropDownListFor(idt => idt.Person.IdentityDocumentTypeId, Model.IdentityDocumentTypeList,
+                        "Seleccione un Tipo de Documento....",
+                        new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.Names"></label>
+                        </span>
+                        <input asp-for="Person.Names" disabled class="form-control" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.Surnames"></label>
+                        </span>
+                        <input asp-for="Person.Surnames" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-8 offset-2">
+                        <span class="bold-label">
+                            <label asp-for="Person.Gender"></label>
+                        </span>
+                        @Html.DropDownListFor(ge => ge.Person.GenderId, Model.GenderList,
+                        "Seleccione un Género....",
+                        new { @class = "form-control", @disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.Department"></label>
+                        </span>
+                        <select asp-for="Person.DepartmentId" onchange="getCity()" name="DepartmentId" id="DepartmentId"
+                                asp-items="Model.DepartmentList" class="form-control">
+                            <option value="" disabled="" selected="">Seleccione un Departamento....</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.City"></label>
+                        </span>
+                        <select asp-for="Person.CityId" onchange="getCity()" name="CityId" id="CityId"
+                                data-val="true" data-val-required="The EnumCountry field is required."
+                                asp-items="Model.CityList" class="form-control">
+                            <option value="0" disabled="" selected="">Seleccione una Ciudad....</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.Address"></label>
+                        </span>
+                        <textarea asp-for="Person.Address" class="form-control" rows="4">
+                        </textarea>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.Phone"></label>
+                        </span>
+                        <input asp-for="Person.Phone" disabled class="form-control" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.Mobile"></label>
+                        </span>
+                        <input asp-for="Person.Mobile" disabled class="form-control" />
+                    </div>
+                    <div class="form-group col-md-6">
+                        <span class="bold-label">
+                            <label asp-for="Person.Active"></label>
+                        </span>
+                        <select asp-for="Person.Active" class="form-control">
+                            <option value=true>Activo</option>
+                            <option value=false>Inactivo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row ml-0">
+                    <div class="col-8 offset-2">
+                        <div class="row">
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">
+                                    <i class="far fa-hand-point-left"><span class="ml-1 font-menu">Regresar</span></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

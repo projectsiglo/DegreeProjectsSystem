@@ -138,14 +138,6 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return View(institutionViewModel);
         }
 
-        #region API
-        [HttpGet]
-        public IActionResult GetAllInstitutions()
-        {
-            var institutions = _unitWork.Institution.GetAll(includeProperties: "InstitutionType");
-            return Json(new { data = institutions });
-        }
-
         //Details Institution
         public IActionResult DetailInstitution(int? id)
         {
@@ -166,6 +158,14 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             }
 
             return View(institutionViewModel);
+        }
+
+        #region API
+        [HttpGet]
+        public IActionResult GetAllInstitutions()
+        {
+            var institutions = _unitWork.Institution.GetAll(includeProperties: "InstitutionType");
+            return Json(new { data = institutions });
         }
 
         //Eliminación de registro lógica
