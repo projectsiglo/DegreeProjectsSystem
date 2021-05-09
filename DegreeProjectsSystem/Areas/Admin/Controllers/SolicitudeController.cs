@@ -14,7 +14,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class SolicitudeController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public SolicitudeController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -142,9 +142,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteSolicitude(int id)
         {
-            Solicitude solicitudeDb = new Solicitude();
             // Actualiza el registro
-            solicitudeDb = _unitWork.Solicitude.Get(id);
+            var solicitudeDb = _unitWork.Solicitude.Get(id);
 
             if (solicitudeDb == null)
             {

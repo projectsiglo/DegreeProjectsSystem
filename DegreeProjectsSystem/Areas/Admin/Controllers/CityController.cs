@@ -150,9 +150,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteCity(int id)
         {
-            City cityDb = new City();
             // Actualiza el registro
-            cityDb = _unitWork.City.Get(id);
+            var cityDb = _unitWork.City.Get(id);
 
             if (cityDb == null)
             {

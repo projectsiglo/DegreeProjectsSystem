@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class TeachingFunctionController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public TeachingFunctionController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -117,9 +117,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteTeachingFunction(int id)
         {
-            TeachingFunction teachingFunctionDb = new TeachingFunction();
             // Actualiza el registro
-            teachingFunctionDb = _unitWork.TeachingFunction.Get(id);
+            var teachingFunctionDb = _unitWork.TeachingFunction.Get(id);
 
             if (teachingFunctionDb == null)
             {

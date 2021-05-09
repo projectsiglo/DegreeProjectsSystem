@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class FacultyController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public FacultyController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -115,9 +115,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteFaculty(int id)
         {
-            Faculty facultytDb = new Faculty();
             // Actualiza el registro
-            facultytDb = _unitWork.Faculty.Get(id);
+            var facultytDb = _unitWork.Faculty.Get(id);
 
             if (facultytDb == null)
             {

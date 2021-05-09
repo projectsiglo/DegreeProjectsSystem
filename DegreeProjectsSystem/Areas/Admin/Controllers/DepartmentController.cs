@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class DepartmentController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public DepartmentController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -115,9 +115,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteDepartment(int id)
         {
-            Department departmentDb = new Department();
             // Actualiza el registro
-            departmentDb = _unitWork.Department.Get(id);
+            var departmentDb = _unitWork.Department.Get(id);
 
             if (departmentDb == null)
             {

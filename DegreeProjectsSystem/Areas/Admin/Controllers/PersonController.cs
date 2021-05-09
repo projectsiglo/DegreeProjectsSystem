@@ -268,9 +268,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeletePerson(int id)
         {
-            Person personDb = new Person();
             // Actualiza el registro
-            personDb = _unitWork.Person.Get(id);
+            var personDb = _unitWork.Person.Get(id);
 
             if (personDb == null)
             {

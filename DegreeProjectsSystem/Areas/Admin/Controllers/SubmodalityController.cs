@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class SubmodalityController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public SubmodalityController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -118,9 +118,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteSubmodality(int id)
         {
-            Submodality submodalityDb = new Submodality();
             // Actualiza el registro
-            submodalityDb = _unitWork.Submodality.Get(id);
+            var submodalityDb = _unitWork.Submodality.Get(id);
 
             if (submodalityDb == null)
             {

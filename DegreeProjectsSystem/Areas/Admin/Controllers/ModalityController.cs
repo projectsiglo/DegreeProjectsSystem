@@ -14,7 +14,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class ModalityController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public ModalityController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -147,9 +147,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteModality(int id)
         {
-            Modality modalityDb = new Modality();
             // Actualiza el registro
-            modalityDb = _unitWork.Modality.Get(id);
+            var modalityDb = _unitWork.Modality.Get(id);
 
             if (modalityDb == null)
             {

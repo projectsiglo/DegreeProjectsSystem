@@ -117,9 +117,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteTypePerson(int id)
         {
-            TypePerson typePersonDb = new TypePerson();
             // Actualiza el registro
-            typePersonDb = _unitWork.TypePerson.Get(id);
+            var typePersonDb = _unitWork.TypePerson.Get(id);
 
             if (typePersonDb == null)
             {

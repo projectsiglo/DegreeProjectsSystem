@@ -14,7 +14,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class CareerController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
         public CareerController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
@@ -146,9 +146,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteCareer(int id)
         {
-            Career careerDb = new Career();
             // Actualiza el registro
-            careerDb = _unitWork.Career.Get(id);
+            var careerDb = _unitWork.Career.Get(id);
 
             if (careerDb == null)
             {

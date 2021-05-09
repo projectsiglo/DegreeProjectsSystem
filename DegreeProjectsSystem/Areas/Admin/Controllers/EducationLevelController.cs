@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class EducationLevelController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public EducationLevelController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -115,9 +115,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteEducationLevel(int id)
         {
-            EducationLevel educationLevelDb = new EducationLevel();
             // Actualiza el registro
-            educationLevelDb = _unitWork.EducationLevel.Get(id);
+            var educationLevelDb = _unitWork.EducationLevel.Get(id);
 
             if (educationLevelDb == null)
             {

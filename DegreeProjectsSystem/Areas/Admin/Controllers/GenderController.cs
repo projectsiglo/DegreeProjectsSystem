@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class GenderController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public GenderController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -115,9 +115,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteGender(int id)
         {
-            Gender genderDb = new Gender();
             // Actualiza el registro
-            genderDb = _unitWork.Gender.Get(id);
+            var genderDb = _unitWork.Gender.Get(id);
 
             if (genderDb == null)
             {

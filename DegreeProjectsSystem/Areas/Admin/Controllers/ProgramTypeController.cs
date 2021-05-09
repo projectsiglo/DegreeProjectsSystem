@@ -14,7 +14,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class ProgramTypeController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public ProgramTypeController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -147,9 +147,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteProgramType(int id)
         {
-            ProgramType programTypeDb = new ProgramType();
             // Actualiza el registro
-            programTypeDb = _unitWork.ProgramType.Get(id);
+            var programTypeDb = _unitWork.ProgramType.Get(id);
 
             if (programTypeDb == null)
             {
