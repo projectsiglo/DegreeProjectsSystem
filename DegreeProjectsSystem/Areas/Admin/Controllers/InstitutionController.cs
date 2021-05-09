@@ -14,8 +14,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class InstitutionController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
 
+        private readonly INotyfService _notyfService;
         public InstitutionController(IUnitWork unitWork, INotyfService notyfService)
         {
             _unitWork = unitWork;
@@ -61,6 +61,28 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
             return View(institutionViewModel);
 
         }
+
+        public IActionResult DetailInstitution(int? id)
+        {
+            InstitutionViewModel institutionViewModel = new InstitutionViewModel()
+            {
+                Institution = new Institution(),
+                InstitutionTypeList = _unitWork.InstitutionType.GetAll().Select(it => new SelectListItem
+                {
+                    Text = it.Name,
+                    Value = it.Id.ToString()
+                })
+            };
+
+            institutionViewModel.Institution = _unitWork.Institution.Get(id.GetValueOrDefault());
+            if (institutionViewModel.Institution == null)
+            {
+                return NotFound();
+            }
+
+            return View(institutionViewModel);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -134,30 +156,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
                     institutionViewModel.Institution = _unitWork.Institution.Get(institutionViewModel.Institution.Id);
                 }
             }
-
             return View(institutionViewModel);
-        }
 
-        //Details Institution
-        public IActionResult DetailInstitution(int? id)
-        {
-            InstitutionViewModel institutionViewModel = new InstitutionViewModel()
-            {
-                Institution = new Institution(),
-                InstitutionTypeList = _unitWork.InstitutionType.GetAll().Select(it => new SelectListItem
-                {
-                    Text = it.Name,
-                    Value = it.Id.ToString()
-                })
-            };
-
-            institutionViewModel.Institution = _unitWork.Institution.Get(id.GetValueOrDefault());
-            if (institutionViewModel.Institution == null)
-            {
-                return NotFound();
-            }
-
-            return View(institutionViewModel);
         }
 
         #region API
@@ -172,9 +172,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteInstitution(int id)
         {
-            Institution institutionDb = new Institution();
             // Actualiza el registro
-            institutionDb = _unitWork.Institution.Get(id);
+            var institutionDb = _unitWork.Institution.Get(id);
 
             if (institutionDb == null)
             {

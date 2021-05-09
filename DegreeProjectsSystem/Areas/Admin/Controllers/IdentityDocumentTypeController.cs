@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class IdentityDocumentTypeController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public IdentityDocumentTypeController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -111,9 +111,9 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteIdentityDocumentType(int id)
         {
-            IdentityDocumentType identityDocumentTypeDb = new IdentityDocumentType();
+            
             // Actualiza el registro
-            identityDocumentTypeDb = _unitWork.IdentityDocumentType.Get(id);
+            var identityDocumentTypeDb = _unitWork.IdentityDocumentType.Get(id);
 
             if (identityDocumentTypeDb == null)
             {

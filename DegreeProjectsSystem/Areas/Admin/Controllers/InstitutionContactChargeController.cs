@@ -11,7 +11,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     public class InstitutionContactChargeController : Controller
     {
         private readonly IUnitWork _unitWork;
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public InstitutionContactChargeController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -111,9 +111,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteInstitutionContactCharge(int id)
         {
-            InstitutionContactCharge institutionContactChargeDb = new InstitutionContactCharge();
             // Actualiza el registro
-            institutionContactChargeDb = _unitWork.InstitutionContactCharge.Get(id);
+            var institutionContactChargeDb = _unitWork.InstitutionContactCharge.Get(id);
 
             if (institutionContactChargeDb == null)
             {

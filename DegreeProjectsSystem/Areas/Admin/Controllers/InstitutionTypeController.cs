@@ -12,7 +12,7 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
     {
         private readonly IUnitWork _unitWork;
 
-        public INotyfService _notyfService { get; }
+        private readonly INotyfService _notyfService;
 
         public InstitutionTypeController(IUnitWork unitWork, INotyfService notyfService)
         {
@@ -118,9 +118,8 @@ namespace DegreeProjectsSystem.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult DeleteInstitutionType(int id)
         {
-            InstitutionType institutionTypeDb = new InstitutionType();
             // Actualiza el registro
-            institutionTypeDb = _unitWork.InstitutionType.Get(id);
+            var institutionTypeDb = _unitWork.InstitutionType.Get(id);
 
             if (institutionTypeDb == null)
             {

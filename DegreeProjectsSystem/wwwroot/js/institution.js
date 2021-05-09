@@ -39,7 +39,7 @@ function loadDataTable() {
                 "render": function (data) {
                     if (!active) {
                         return `
-                            <div class="text-center col>
+                            <div class="text-center col">
                                 <a href="/Admin/Institution/InsertOrUpdateInstitution/${data}" class="btn btn-warning text-white" style="cursor:pointer;">
                                     <i class="far fa-edit"></i>
                                 </a>
