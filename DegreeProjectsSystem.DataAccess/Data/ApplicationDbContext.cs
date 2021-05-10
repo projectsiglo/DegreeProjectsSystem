@@ -11,6 +11,9 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         {
         }
 
+
+        public DbSet<Career> Careers { get; set; }
+        public DbSet<CareerPerson> CareerPeople { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<DepartmentFaculty> DepartmentFaculties { get; set; }
@@ -21,7 +24,6 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         public DbSet<InstitutionContactCharge> InstitutionContactCharges { get; set; }
         public DbSet<IdentityDocumentType> IdentityDocumentTypes { get; set; }
         public DbSet<InstitutionType> InstitutionTypes { get; set; }
-        public DbSet<Career> Careers { get; set; }
         public DbSet<Modality> Modalities { get; set; }
         public DbSet<Person> People { get; set; }
         public DbSet<ProgramType> ProgramTypes { get; set; }
@@ -36,6 +38,10 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
 
             modelBuilder.Entity<Career>()
                 .HasIndex(ca => ca.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<CareerPerson>()
+                .HasIndex(cpe => new { cpe.CareerId, cpe.PersonId })
                 .IsUnique();
 
             modelBuilder.Entity<City>()

@@ -11,18 +11,21 @@ namespace DegreeProjectsSystem.Models
         [Key]
         public int Id { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar un Tipo de Programa")]
-        [MaxLength(50, ErrorMessage = "El campo {0} debe tener menos de {1} caracteres")]
-        [Display(Name = "Nombre")]
-        public string Name { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar un Programa")]
+        public int CareerId { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar un Nível Educativo")]
-        public int EducationLevelId { get; set; }
-
+        [Display(Name = "Programa")]
         //Foreign key
-        [ForeignKey("EducationLevelId")]
-        public EducationLevel EducationLevel { get; set; }
+        [ForeignKey("CareerId")]
+        public Career Career { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar una Persona que Pertenezca al Programa")]
+        public int PersonId { get; set; }
+
+        [Display(Name = "Persona")]
+        //Foreign key
+        [ForeignKey("PersonId")]
+        public Person Person { get; set; }
 
         [Display(Name = "Estado")]
         public bool Active { get; set; }
