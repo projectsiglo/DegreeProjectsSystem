@@ -57,6 +57,7 @@ namespace DegreeProjectsSystem.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar La Dirección")]
         [MaxLength(300, ErrorMessage = "El campo {0} debe tener menos de {1} caracteres")]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Dirección")]
         public string Address { get; set; }
 

@@ -22,7 +22,7 @@ namespace DegreeProjectsSystem.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe seleccionar una Persona que Pertenezca al Programa")]
         public int PersonId { get; set; }
 
-        [Display(Name = "Persona")]
+        [Display(Name = "Nombres y Apellidos")]
         //Foreign key
         [ForeignKey("PersonId")]
         public Person Person { get; set; }
