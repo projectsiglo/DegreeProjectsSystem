@@ -19,6 +19,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
         IModalityRepository Modality { get; }
         IPersonRepository Person { get; }
         IProgramTypeRepository ProgramType { get; }
+        IRecognitionRepository Recognition { get; }
         ISolicitudeRepository Solicitude { get;  }
         ISubmodalityRepository Submodality { get; }
         ITeachingFunctionRepository TeachingFunction { get; }   
