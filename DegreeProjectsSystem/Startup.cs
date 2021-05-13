@@ -28,18 +28,19 @@ namespace DegreeProjectsSystem
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<IUnitWork, UnitWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
-            
+
+
             /*  Configuration Messages of Notify*/
-            services.AddNotyf(config => 
-                { 
-                    config.DurationInSeconds = 4; 
-                    config.IsDismissable = true;
-                    config.Position = NotyfPosition.TopRight; });
+            services.AddNotyf(config =>
+            {
+                config.DurationInSeconds = 4;
+                config.IsDismissable = true;
+                config.Position = NotyfPosition.TopRight;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

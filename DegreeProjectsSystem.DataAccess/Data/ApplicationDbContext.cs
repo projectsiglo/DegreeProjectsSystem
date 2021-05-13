@@ -26,6 +26,7 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
         public DbSet<InstitutionType> InstitutionTypes { get; set; }
         public DbSet<Modality> Modalities { get; set; }
         public DbSet<Person> People { get; set; }
+        public DbSet<PersonTypePerson> PersonTypePeople { get; set; }
         public DbSet<ProgramType> ProgramTypes { get; set; }
         public DbSet<Recognition> Recognitions { get; set; }
         public DbSet<Solicitude> Solicitudes { get; set; }
@@ -92,7 +93,11 @@ namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
             modelBuilder.Entity<Person>()
                .HasIndex(pe => pe.IdentificationNumber)
                .IsUnique();
-               
+
+            modelBuilder.Entity<PersonTypePerson>()
+               .HasIndex(ptp => new { ptp.PersonId, ptp.TypePersonId })
+               .IsUnique();
+
             modelBuilder.Entity<ProgramType>()
                .HasIndex(pt => new { pt.Name })
                .IsUnique();

@@ -1,0 +1,79 @@
+﻿@model DegreeProjectsSystem.Models.ViewModels.PersonTypePersonViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Crear Asignación de Tipo de Persona";
+}
+
+<form method="post">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.PersonTypePerson.Id != 0)
+    {
+        // Actualizar
+        title = "Actualizar Asignación Tipo de Persona";
+        <input type="hidden" asp-for="PersonTypePerson.Id" />
+    }
+
+    <div class="col-12 border-bottom mt-5">
+        <h2 class="text-primary">@title</h2>
+    </div>
+
+    <div class="col-8 pt-4">
+
+        <div class="form-group row">
+            <div class="col-4">
+                Nombres y Apellidos:
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(pe => pe.PersonTypePerson.PersonId, Model.PersonList,
+                "Seleccione una persona....",
+                new { @class = "form-control" })
+                <span asp-validation-for="PersonTypePerson.PersonId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                Tipo De Persona:
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(ptp => ptp.PersonTypePerson.TypePersonId, Model.TypePersonList,
+                "Seleccione un tipo de persona....",
+                new { @class = "form-control" })
+                <span asp-validation-for="PersonTypePerson.TypePersonId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="PersonTypePerson.Active"></label>
+            </div>
+            <div class="col-4">
+                <select asp-for="PersonTypePerson.Active" class="form-control">
+                    <option value=true>Activo</option>
+                    <option value=false>Inactivo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.PersonTypePerson.Id != 0)
+                {
+                    <partial name="_ButtonsUpdateAndReturn" model="Model.PersonTypePerson.Id" />
+                }
+                else
+                {
+                    <partial name="_ButtonsCreateAndReturn" />
+                }
+            </div>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

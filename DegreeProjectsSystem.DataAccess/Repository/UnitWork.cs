@@ -1,5 +1,6 @@
 ﻿using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
+using System;
 
 namespace DegreeProjectsSystem.DataAccess.Repository
 {
@@ -20,13 +21,13 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         public IInstitutionTypeRepository InstitutionType { get; private set; }
         public IModalityRepository Modality { get; private set; }
         public IPersonRepository Person { get; private set; }
+        public IPersonTypePersonRepository PersonTypePerson { get; private set; }
         public IProgramTypeRepository ProgramType { get; private set; }
         public IRecognitionRepository Recognition { get; private set; }
         public ISolicitudeRepository Solicitude { get; private set; }
         public ISubmodalityRepository Submodality { get; private set; }
         public ITeachingFunctionRepository TeachingFunction { get; private set; }
         public ITypePersonRepository TypePerson { get; private set; }
-
         public UnitWork(ApplicationDbContext db)
         {
             _db = db;
@@ -44,6 +45,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository
             InstitutionType = new InstitutionTypeRepository(_db);
             Modality = new ModalityRepository(_db);
             Person = new PersonRepository(_db);
+            PersonTypePerson = new PersonTypePersonRepository(_db);
             ProgramType = new ProgramTypeRepository(_db);
             Recognition = new RecognitionRepository(_db);
             Solicitude = new SolicitudeRepository(_db);
@@ -61,6 +63,5 @@ namespace DegreeProjectsSystem.DataAccess.Repository
         {
             _db.Dispose();
         }
-
     }
 }
