@@ -21,7 +21,7 @@ namespace DegreeProjectsSystem.Models
         public string ActNumber { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Debe ingresar la fecha del acta")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date, ErrorMessage = "Fecha inválida")]
         [Display(Name = "Fecha Acta")]
         public DateTime ActDate { get; set; }

@@ -3,9 +3,11 @@ using AspNetCoreHero.ToastNotification.Extensions;
 using DegreeProjectsSystem.DataAccess.Repository;
 using DegreeProjectsSystem.DataAccess.Repository.IRepository;
 using DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data;
+using DegreeProjectsSystem.Utilidades;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,16 +30,17 @@ namespace DegreeProjectsSystem
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IUnitWork, UnitWork>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
-
             /*  Configuration Messages of Notify*/
             services.AddNotyf(config =>
             {
-                config.DurationInSeconds = 4;
+                config.DurationInSeconds = 3;
                 config.IsDismissable = true;
                 config.Position = NotyfPosition.TopRight;
             });
@@ -49,7 +52,6 @@ namespace DegreeProjectsSystem
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
             }
             else
             {

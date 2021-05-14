@@ -20,8 +20,7 @@ function loadDataTable() {
                 "data": "actDate", "width": "10%",
                 className: "text-center",
                 "render": function (data) {
-                    var d = new Date(data);
-                    return d.toLocaleString().substr(0,10);
+                    return (new Date(data)).toLocaleDateString("dd/mm/yyyy").substring(0,7);
                  }
             },
             {

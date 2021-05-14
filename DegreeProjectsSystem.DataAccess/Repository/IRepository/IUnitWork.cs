@@ -4,6 +4,7 @@ namespace DegreeProjectsSystem.DataAccess.Repository.IRepository
 {
     public interface IUnitWork : IDisposable
     {
+        IApplicationUserRepository ApplicationUser { get; }
         ICareerRepository Career { get; }
         ICareerPersonRepository CareerPerson { get; }
         ICityRepository City { get; }

@@ -4,14 +4,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DegreeProjectsSystem.DegreeProjectsSystem.DataAccess.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
 
-
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Career> Careers { get; set; }
         public DbSet<CareerPerson> CareerPeople { get; set; }
         public DbSet<City> Cities { get; set; }
