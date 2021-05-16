@@ -8,13 +8,15 @@ namespace DegreeProjectsSystem.Models
     {
         [Required]
         [Display(Name = "Nombres")]
-        public string Names { get; set; }
+        public  string Names { get; set; }
         [Display(Name = "Apellidos")]
         [Required]
         public string Surnames { get; set; }
+        
         [Required]
         [Display(Name = "Dependencia")]
         public string Dependence { get; set; }
+        
         [NotMapped]
         public string Role { get; set; }
     }

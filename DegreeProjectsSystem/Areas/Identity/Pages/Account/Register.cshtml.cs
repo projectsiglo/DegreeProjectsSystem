@@ -18,16 +18,16 @@ namespace DegreeProjectsSystem.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IUnitWork _iUnitWork;
 
         public RegisterModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
             RoleManager<IdentityRole> roleManager,
@@ -61,7 +61,7 @@ namespace DegreeProjectsSystem.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} debe tener un mínimo de {2} caracteres y máximo {1} caracteres.", MinimumLength = 6)]
+            [StringLength(15, ErrorMessage = "The {0} debe tener un mínimo de {2} caracteres y máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Clave")]
             public string Password { get; set; }
@@ -108,7 +108,7 @@ namespace DegreeProjectsSystem.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("Usuario creado  nueva cuenta con clave.");
+                    _logger.LogInformation("Usuario creado, nueva cuenta con clave.");
 
                     if (!await _roleManager.RoleExistsAsync(DS.Role_Admin))
                     {
